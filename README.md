@@ -1,3 +1,59 @@
+# ReactJS 기반 주거증명 웹 어플리케이션
+
+## 개발환경
+ - MacOS, VSCode, ReactJS, Bootstrap, AWS Beanstalk
+
+## 기능
+ - 공통 컴포넌트
+    - PopupComponent
+        - [ ] PopupLargeComponent
+            - 큰 사이즈 팝업창 ( width: 1/3, height: auto)
+        - [ ] PopupMediumComponent
+            - 중간 사이즈 팝업창 ( width: 1/2, height: auto)
+        - [ ] PopupSmallComponent
+            - 작은 사이즈 팝업창 ( width: 1/5, height: auto)
+
+    - ImageComponent
+        - [ ] SlideImageComponent
+        - [ ] SingleImageComponent
+
+    - LoadingComponent
+        - [ ] ProgressBarComponent
+        - [ ] CircleComponent
+
+- 사용자 관련
+    - [ ] 회원가입( components/SignupComponent/* )
+        - [ ] 이메일 인증 팝업 창 ( componenets/EmailVerifyWrapperCompnent/* )
+            - 이메일 인증을 감싸는 컴포넌트
+        - [ ] 이메일 인증 ( components/EmailVerifyComponent/* )
+            - 이메일을 인증하는 컴포넌트
+        - [ ] 휴대폰 인증 팝업 창 ( componenets/PhoneVerifyWrapperComponent/* )
+            - 휴대폰 인증을 감싸는 컴포넌트
+        - [ ] 휴대폰 인증 ( components/PhoneVerifyComponent/* )
+            - 휴대폰을 인증하는 컴포넌트
+        - [ ] 휴대폰 인증 성공/실패 창 ( componenets/PhoneVerifyResultComponent/* )
+            - 휴대폰 인증 완료 후 결과창 ( 성공/실패 )
+    - [ ] 로그인 ( components/LoginComponent/* )
+    - [ ] 로그아웃 ( components/LogoutComponent/* )
+    - [ ] 회원탈퇴 ( components/WithdrawalComponent/* )
+    - [ ] 회원탈퇴 결과 ( components/WidthdrawalResultComplete/* )
+    - [ ] 사용자 정보 ( components/UserProfileComponent/* )
+- 주거정보 관련 (components/RealEstate/)
+    - 주거정보 목록 ( components/RealEstateList/*)
+    - 주거정보 요약 정보 ( components/RealEstateSummary/*)
+    - 주거정보 상세 정보 ( components/RealEstateDetail/*)
+    - 주거정보 삭제 ( components/RealEstateDelete/* )
+    - 주거정보 추가 ( components/RealEstateInsert/* )
+- OCR 관련 ( components/OCRComponent/ )
+    - OCR 이미지 스캔 ( components/OCRComponent)
+    - OCR 레이아웃 ( components/OCRWrapperComponent)
+    - OCR 결과 ( components/OCRResultComponent)
+- 결제 관련(components/PayComponent)
+
+
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

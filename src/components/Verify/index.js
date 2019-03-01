@@ -1,7 +1,2 @@
-import VerifyEmail from './VerifyEmail';
-import VerifyPhone from './VerifyPhone';
-
-export { 
-    VerifyEmail, 
-    VerifyPhone 
-};
+export { default as VerifyEmail} from './VerifyEmail';
+export { default as VerifyPhone} from './VerifyPhone';

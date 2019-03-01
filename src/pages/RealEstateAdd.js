@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
+import { Zone, Preview}  from 'components/DragAndDrop';
 
+import { DragAndDropProvider } from 'contexts/DragAndDrop';
 export default class RealEstateAdd extends Component {
+
     render() {
         return (
-            <div>
+            <DragAndDropProvider>
                 <h1>부동산 등록</h1>
-            </div>
+                
+                <Zone>
+
+                    
+                </Zone>
+                <Preview/>
+                
+                
+            </DragAndDropProvider>
         )
     }
 }

@@ -7,3 +7,4 @@ export { default as RealEstateDetail } from './RealEstateDetail';
 export { default as RealEstateAdd } from './RealEstateAdd';
 export { default as Signup } from './Signup';
 export { default as Logout } from './Logout';
+export { default as Account } from './Account';

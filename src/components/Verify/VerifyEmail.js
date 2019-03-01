@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { Card, CardHeader, CardBody, CardTitle } from 'reactstrap';
+import Popup from 'reactjs-popup';
+import * as Icons from 'react-feather/dist';
+import styles from './VerifyEmail.scss';
+import classNames from 'classnames';
+
+const cx = classNames.bind(styles);
 
 export default class VerifyEmail extends Component {
     state = {
@@ -7,16 +12,24 @@ export default class VerifyEmail extends Component {
     }
 
     render() {
-        return (
-            <div className="container">
-                <Card>
-                    <CardHeader>
+        const { verifingEmail } = this.props;
 
-                    </CardHeader>
-                    <CardBody>
-                        
-                    </CardBody>
-                </Card>
+        return (
+            <div className={cx('verify-email-wrapper')}>
+                <div className={cx('verify-email-header')}>
+                    <div className={cx('icon-wrapper')}>
+                        <Icons.Send className={cx('icon')}/>
+                        <p>Check your email</p>
+
+                    </div>
+                </div>
+                <div className={cx('verify-email-body')}>
+                    <p>We sent email to <a href="#" >{verifingEmail}</a>. Please check your email and verify your email address</p>
+                </div>
+                <br/>
+                <div className={cx('verify-email-footer')}>
+                    <p><a href="#">Send email again</a></p>
+                </div>
             </div>
         )
     }

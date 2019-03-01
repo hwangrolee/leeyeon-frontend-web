@@ -1,0 +1,42 @@
+.verify-wrapper {
+    // width: 50%;
+    .verify-wrapper-header {
+        text-align: center;
+    }
+    .verify-container {
+        margin: 0rem 1rem 1rem 1rem;
+
+        border: 1px solid #b8babd33;
+        padding: 1.5em;
+        border-radius: 1%;
+        background-color: #F1F1F1;
+        z-index: 3;
+
+        .verify-header {
+            text-align: center;
+        }
+    
+        .verify-body {
+            .label {
+                font-size: 0.9em;
+            }
+    
+            // border: 1px solid black;
+            // border-radius: 0.5em;
+            
+        }
+    
+        .verify-footer {
+            .button {
+                width: 100%;
+            }
+    
+           
+        }
+    }
+
+    .small {
+        text-align: center;
+    }
+    
+}

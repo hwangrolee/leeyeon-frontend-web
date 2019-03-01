@@ -1,0 +1,83 @@
+@import '../../styles/utils';
+
+ul.manu-container {
+    // position: relative;
+    // height: 80px;
+    margin-bottom: 10px;
+    list-style-type: none;
+    margin: 0px 0px 10px 0px;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+
+    li {
+        float: left;
+
+        a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+
+            &:hover {
+                background-color: #111;
+            }
+
+            
+        }
+        &.right {
+            float: right !important;
+        }
+
+        &:last-child {
+            border-right: none;
+        }
+
+    }
+
+    
+
+    .manu-right {
+        // float:right;
+        // left: 100px;
+        height: 100%;
+    }
+    .manu-left {
+        // position: absolute;
+        height: 100%;
+    }
+
+    .logo {
+        width: 100px;
+        height: 100%;
+        border: 1px solid lightgrey;
+    }
+
+    .manu-group {
+        display: flex;
+        height: inherit;
+        align-self: flex-end;
+
+        .link {
+            color: lightgrey;
+            align-self:inherit;
+            &.hover {
+                color: lightblue;
+            }
+        }
+
+        span {
+            align-self:inherit;
+        }
+
+        .link-small {
+            color: grey;
+            align-self: inherit;
+            font-size: 0.8em;
+            &.hover {
+                color: black;
+            }
+        }
+    }
+}

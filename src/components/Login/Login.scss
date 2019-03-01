@@ -1,0 +1,32 @@
+@import '../../styles/utils';
+
+.login-wrapper {
+    position: absolute;
+    top: 30%;
+    font-size: 1rem;
+    width: 30%;
+    left: 35%;
+    padding: 1rem;
+    border: 0.5px solid lightgray;
+    border-radius: 2%;
+    
+    small {
+        font-size: 0.7rem;
+        color: gray;
+    }
+
+    .submit {
+        width: 100%;
+    }
+
+    .login-input {
+
+        &.success {
+
+        }
+
+        &.fail {
+
+        }
+    }
+}

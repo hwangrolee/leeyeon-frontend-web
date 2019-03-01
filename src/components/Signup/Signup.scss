@@ -1,0 +1,27 @@
+.signup-wrapper {
+    position: relative;
+    top: 20%;
+    font-size: 1rem;
+    width: 30%;
+    left: 35%;
+    padding: 1rem;
+    border: 0.5px solid lightgray;
+    border-radius: 2%;
+    // background-color: #F7F7F7;
+    
+    small {
+        font-size: 0.7rem;
+        color: gray;
+    }
+
+    .signup-input {
+
+        &.success {
+
+        }
+
+        &.fail {
+
+        }
+    }
+}

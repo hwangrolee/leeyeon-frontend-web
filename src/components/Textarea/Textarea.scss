@@ -1,0 +1,11 @@
+.textarea {
+    border-color: lightgrey;
+    color: #434b52;
+    font-size: 1rem;
+    
+    &:focus {
+        outline: none;
+        border-style: none;
+        box-shadow: 0 0 10px #719ECE;
+    }
+}

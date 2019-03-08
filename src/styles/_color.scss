@@ -1,0 +1,79 @@
+
+$default: #FAFAFA;
+$danger: #F41C20;
+$warning: #FF5C03;
+$info: #36D2A5;
+$success: #58dd63;
+$primary: #4ECCDB;
+$dark: #1E2230;
+$alert: rgb(219, 158, 78);
+$system: #4D4773;
+
+$hover: #1A1A1A;
+$disable: #333333;
+
+.danger {
+    background-color: $danger;
+    color: $default;
+
+    &:hover {
+        background-color: $danger + $hover;
+    }
+}
+
+.warning {
+    background-color: $warning;
+    color: $default;
+
+    &:hover {
+        background-color: $warning + $hover;
+    }
+}
+
+.info {
+    background-color: $info;
+    color: $default;
+    &:hover {
+        background-color: $info + $hover;
+    }
+}
+
+.success {
+    background-color: $success;
+    color: $default;
+    &:hover {
+        background-color: $success + $hover;
+    }
+}
+
+.primary {
+    background-color: $primary;
+    color: $default;
+    &:hover {
+        background-color: $primary + $hover;
+    }
+}
+
+.dark {
+    background-color: $dark;
+    color: $default;
+    &:hover {
+        background-color: $dark + $hover;
+    }
+}
+
+.alert {
+    background-color: $alert;
+    color: $default;
+    &:hover {
+        background-color: $alert + $hover;
+    }
+}
+
+.system {
+    background-color: $system;
+    color: $default;
+    &:hover {
+        background-color: $system + $hover;
+    }
+}

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {Form, FormGroup, InputGroup, Input, Button} from 'reactstrap';
 
 export default class RealEstateSearch extends Component {
     state = {
@@ -15,19 +14,20 @@ export default class RealEstateSearch extends Component {
 
     render() {
         return (
-            <Form>
-                <FormGroup>
-                    <InputGroup>
-                        <Button color="default">Click me...</Button>
-                        <Input
-                            name="search"
-                            placeholder=""
-                            value={this.state.search}
-                            onChange={this.handleChange}
-                        />
-                    </InputGroup>
-                </FormGroup>
-            </Form>
+            <div></div>
+            // <Form>
+            //     <FormGroup>
+            //         <InputGroup>
+            //             <Button color="default">Click me...</Button>
+            //             <Input
+            //                 name="search"
+            //                 placeholder=""
+            //                 value={this.state.search}
+            //                 onChange={this.handleChange}
+            //             />
+            //         </InputGroup>
+            //     </FormGroup>
+            // </Form>
         )
     }
 }

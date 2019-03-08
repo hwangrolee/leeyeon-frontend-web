@@ -1,6 +1,5 @@
 import React, { Component} from 'react';
 import RealEstateSummary from './RealEstateSummary';
-import { Form, FormGroup, Input, InputGroup, Button, CardDeck } from 'reactstrap';
 
 export default class RealEstateList extends Component {
     state = {
@@ -8,7 +7,7 @@ export default class RealEstateList extends Component {
         realEstateList: [{
             id: 1,
             fee: 10,
-            imageLink: 'http://catalk.kr/wp-content/uploads/2018/07/Type-of-Housing.jpg',
+            imageLink: 'https://previews.123rf.com/images/hemul75/hemul751606/hemul75160600014/57656725-%ED%81%B4%EB%9E%98%EC%8B%9D-%EC%95%84%EC%9D%B4-%EB%B0%A9-%ED%99%94%EC%9D%B4%ED%8A%B8-%EC%83%89%EC%83%81%EC%9D%98-3d-%EB%A0%8C%EB%8D%94%EB%A7%81.jpg',
             liked: false,
             address: {
                 country: 'KOR',
@@ -23,7 +22,7 @@ export default class RealEstateList extends Component {
         },{
             id: 2,
             fee: 5,
-            imageLink: 'http://catalk.kr/wp-content/uploads/2018/07/Type-of-Housing.jpg',
+            imageLink: 'https://previews.123rf.com/images/hemul75/hemul751606/hemul75160600014/57656725-%ED%81%B4%EB%9E%98%EC%8B%9D-%EC%95%84%EC%9D%B4-%EB%B0%A9-%ED%99%94%EC%9D%B4%ED%8A%B8-%EC%83%89%EC%83%81%EC%9D%98-3d-%EB%A0%8C%EB%8D%94%EB%A7%81.jpg',
             liked: false,
             address: {
                 country: 'KOR',
@@ -48,7 +47,7 @@ export default class RealEstateList extends Component {
     render () {
         return (
             <div className="container">
-                <CardDeck>
+                <div>
                     {
                         this.state.realEstateList.map(realEstate => {
                             return <RealEstateSummary
@@ -57,7 +56,7 @@ export default class RealEstateList extends Component {
                             />
                         })
                     }
-                </CardDeck>
+                </div>
             </div>
             
         )

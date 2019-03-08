@@ -1,72 +1,60 @@
-import React, { Component } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import Signup from 'components/Signup';
-import Login from 'components/Login';
-import styles from './Manu.scss';
-import classNames from 'classnames';
+import React, { Component } from "react";
+import { Link, NavLink } from "react-router-dom";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton
+} from "@material-ui/core";
+
+import { Menu as MenuIcon } from '@material-ui/icons';
+
+import Signup from "components/Signup";
+import Login from "components/Login";
+import styles from "./Manu.scss";
+import classNames from "classnames";
 
 const cx = classNames.bind(styles);
 
 export default class Manu extends Component {
-    render ()  {
-
-        const manuList = [{
-            text: '매물 등록',
-            to: '/realEstate/add'
-        }, {
-            text: '매물 보기',
-            to: '/realEstate'
-        }, {
-            text: '내정보',
-            to: '/account'
-        }]
-        return (
-            <ul className={cx('manu-container')}>
-                <li>
-                    <Link to="/">Logo</Link>
-                </li>
-
-                <li><Link to="/real-estate">매물보기</Link></li>
-                <li><Link to="/real-estate/add">매물등록</Link></li>
-                <li><Link to="/account">내 정보</Link></li>
-
-            
-                <li className={cx('right')}>
-                    <Link className={cx('right')} to="/signup">회원가입</Link>
-                </li>
-                <li className={cx('right')}>
-                    <Link className={cx('right')} to="/login">로그인</Link>
-                </li>
-                
-                {/* <div className={cx('manu-left')}>
-                    <div className={cx('logo')}>
-                        Logo
-                    </div>
-                </div>
-                <div className={cx('manu-left')}> 
-                    <div className={cx('manu-group')}>
-                        {
-                            manuList.map(manu => <Link className={cx('link')} to={manu.to}>{manu.text}</Link>)
-                        }
-                    </div>
-                </div>
-                <div className={cx('manu-right')}>
-                    <div className={cx('manu-group')}>
-                        <Link className={cx('link-small')} to="#login">로그인</Link>
-                        <span>&emsp;|&emsp;</span>
-                        <Link className={cx('link-small')} to="#signup">회원가입</Link>
-                    </div>
-                </div> */}
-                {/* <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/login">로그인</Link></li>
-                    <li><Link to="/signup">회원가입</Link></li>
-                    <li><Link to="/logout">로그아웃</Link></li>
-                    <li><Link to="/real-estate">부동산</Link></li>
-                    <li><Link to="/about">About</Link></li>
-                </ul> */}
-                {/* <hr/> */}
-            </ul>
-        )
-    }
+  render() {
+    const manuList = [
+      {
+        text: "매물 등록",
+        to: "/realEstate/add"
+      },
+      {
+        text: "매물 보기",
+        to: "/realEstate"
+      },
+      {
+        text: "내정보",
+        to: "/account"
+      }
+    ];
+    return (
+      <div style={{flexGrow:1, marginBottom: '20px'}}>
+        <AppBar position="static">
+          <Toolbar style={{backgroundColor: '#007bff'}}>
+            <IconButton color="inherit" aria-label="Menu" style={{marginLeft: -12, marginRight: 20}}>
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit" style={{flexGrow:1}}>
+                <Link to="/">Proof of Residence</Link>
+            </Typography>
+            <Link to="/real-estate/list" style={{}}>매물보기</Link>
+            &emsp;&emsp;
+            <Link to="/real-estate/add">매물등록</Link>
+            &emsp;&emsp;
+            <Link to="/account">내정보</Link>
+            &emsp;&emsp;
+            &emsp;&emsp;
+            <Button color="inherit" size="small" style={{fontWeigh:900, color: 'white'}}>로그인</Button>|<Button color="inherit" size="small" style={{fontWeigh:900}}>회원가입</Button>
+            {/* <Button color="inherit" size="small" style={{fontWeigh:900}}>로그아웃</Button> */}
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
 }

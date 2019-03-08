@@ -3,11 +3,12 @@ import { Route, Switch } from 'react-router-dom';
 import Menu from 'components/Menu';
 import { Header, Body, Footer } from 'components/Layout';
 import { Home, About, RealEstate, Login, Logout, Signup, RealEstateList, RealEstateAdd, RealEstateDetail, Account } from 'pages';
+import { EditRealEstateProvider } from '../contexts/EditRealEstate';
 
 class App extends Component {
   render() {
     return (
-     <div>
+     <EditRealEstateProvider>
           {/* <Header> */}
             <Menu/>
           {/* </Header> */}
@@ -22,18 +23,20 @@ class App extends Component {
               <Route path="/real-estate/list" component={RealEstateList}/> 
               <Route path="/real-estate/add" component={RealEstateAdd}/> 
               <Route path="/real-estate" component={RealEstate}/>
+              {/* <Route path="/real-estate/add/upload-image" component={Terms}/> */}
+
             </Switch>
             <Switch>
               <Route path="/about/:name" component={About}/>
               <Route path="/about" component={About}/>
             </Switch>
           </Body>
-          <Footer>
+          {/* <Footer>
             Footer
-          </Footer>
+          </Footer> */}
           
           
-     </div> 
+     </EditRealEstateProvider> 
     )
   }
 }

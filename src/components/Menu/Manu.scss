@@ -1,5 +1,13 @@
 @import '../../styles/utils';
 
+a {
+    text-decoration: none;
+    color: white;
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
 ul.manu-container {
     // position: relative;
     // height: 80px;

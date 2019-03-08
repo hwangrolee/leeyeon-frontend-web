@@ -3,6 +3,13 @@
 ## 개발환경
  - MacOS, VSCode, ReactJS, Bootstrap, AWS Beanstalk
 
+ ## 라이브러리
+  - [react](https://www.npmjs.com/package/react), react-dom, react-router-dom, etc.
+  - [material-ui](https://material-ui.com/)
+  - [react-image-gallery](https://www.npmjs.com/package/react-image-gallery)
+  - [axios](https://www.npmjs.com/package/axios)
+  - [react-dropzone](https://www.npmjs.com/package/react-dropzone)
+
 ## 기능
  - 공통 컴포넌트
     - PopupComponent

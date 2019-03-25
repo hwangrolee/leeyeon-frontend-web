@@ -5,7 +5,7 @@ import styles from './Login.scss';
 
 const cx = classNames.bind(styles);
 
-export default class LoginComponent extends Component {
+export default class Login extends Component {
     state = {
         email: '',
         password: '',

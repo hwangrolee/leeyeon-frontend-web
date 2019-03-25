@@ -3,6 +3,11 @@
 ## 개발환경
  - MacOS, VSCode, ReactJS, Bootstrap, AWS Beanstalk
 
+## 배포
+> aws s3로 배포
+
+Link: http://estate-service.s3-website.ap-northeast-2.amazonaws.com
+
  ## 라이브러리
   - [react](https://www.npmjs.com/package/react), react-dom, react-router-dom, etc.
   - [material-ui](https://material-ui.com/)

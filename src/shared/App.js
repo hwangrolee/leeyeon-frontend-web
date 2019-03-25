@@ -9,22 +9,15 @@ class App extends Component {
   render() {
     return (
      <EditRealEstateProvider>
-          {/* <Header> */}
-            <Menu/>
-          {/* </Header> */}
+          <Menu/>
           <Body>
             <Route exact path="/" component={Home}/>
-            <Route exact path="/login" component={Login}/>
-            <Route exact path="/logout" component={Logout}/>
-            <Route exact path="/signup" component={Signup}/>
             <Route exact path="/account" component={Account}/>
             <Switch>
               <Route path="/real-estate/detail/:realEstateId" component={RealEstateDetail}/> 
               <Route path="/real-estate/list" component={RealEstateList}/> 
               <Route path="/real-estate/add" component={RealEstateAdd}/> 
               <Route path="/real-estate" component={RealEstate}/>
-              {/* <Route path="/real-estate/add/upload-image" component={Terms}/> */}
-
             </Switch>
             <Switch>
               <Route path="/about/:name" component={About}/>

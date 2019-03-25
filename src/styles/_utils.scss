@@ -1,9 +1,13 @@
+$base-color: #007bff;
 
-@import './color';
-@import './layout';
+body {
+    button {
+        border-radius: 0 !important;
+    }
+}
 
 .show {
-    display: black;
+    display: block;
 }
 
 .hide {
@@ -11,7 +15,6 @@
 }
 
 .card {
-
     &:hover {
         background-color: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
         'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)'
@@ -21,6 +24,36 @@
     width: 85%;
 }
 .image-gallery-slide img {
-    // width: 80%;
     height: 420px;
+}
+
+.menu-bar {
+    background-color: $base-color;
+}
+
+.submit-button {
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+    background-color:$base-color !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+
+    &:hover {
+        opacity: 0.9 !important;
+    }
+    &:disabled {
+        opacity: 0.7;
+    }
+}
+
+.modal-action {
+    margin: 0 !important;
+
+    button {
+        margin: 0 !important;
+
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
 }

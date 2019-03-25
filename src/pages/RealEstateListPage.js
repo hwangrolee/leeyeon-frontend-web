@@ -180,7 +180,7 @@ class RealEstateListPage extends Component {
   }
 
   getSubTitle({ address, type }) {
-    return <div>{type}</div>;
+    return <div>{type} / 면적, 주소, 층</div>;
   }
 
   render() {
@@ -226,7 +226,6 @@ class RealEstateListPage extends Component {
                 window.open("/real-estate/detail/" + item.id);
               }}
             >
-              {/* <Card style={{ height:'255px', width:'25%', padding: "10px" }}> */}
               <Card>
                 <CardHeader
                   title={this.getTitle({

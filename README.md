@@ -46,3 +46,10 @@ $ npm run build
   - [react-image-gallery](https://www.npmjs.com/package/react-image-gallery)
   - [axios](https://www.npmjs.com/package/axios)
   - [react-dropzone](https://www.npmjs.com/package/react-dropzone)
+
+
+## 진행사항
+
+- [O] 로그인
+- [O] 회원가입
+- [X] 마이페이지

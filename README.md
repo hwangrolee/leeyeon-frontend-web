@@ -33,9 +33,9 @@ http://sass-lang.com/documentation/Sass/Script/Functions.html#other_color_functi
 
 ## 배포하기
  - 빌드하기
- ```bash
+```bash
 $ npm run build
- ```
+```
 
  - 생성된 build 폴더 aws s3에 복사
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom';
 
-export default class RealEstate extends Component {
+export default class Estate extends Component {
     render () {
         const { match } = this.props;
         return (

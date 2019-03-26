@@ -13,7 +13,7 @@ import classNames from "classnames";
 
 const cx = classNames.bind(require("../styles/_utils.scss"));
 
-class RealEstateAddReport extends Component {
+class EstateAddReport extends Component {
   state = {
     thumbnails: []
   };
@@ -36,4 +36,4 @@ class RealEstateAddReport extends Component {
     )
   }
 }
-export default RealEstateAddReport
+export default EstateAddReport

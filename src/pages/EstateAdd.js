@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import { Link as RouterLink, Switch, Route } from "react-router-dom";
 import DropZone from "react-dropzone";
 import { withStyles } from "@material-ui/core/styles";
-// import { withEditRealEstate } from '../contexts/EditRealEstate';
-// import { EditRealEstateProvider } from '../contexts/EditRealEstate';
 import qs from "query-string";
-import RealEstateInsert from "../components/RealEstate/RealEstateInsert";
+import EstateInsert from "../components/Estate/EstateInsert";
 import {
   Button,
   Grid,
@@ -25,6 +23,7 @@ import {
   DialogContentText,
   Link
 } from "@material-ui/core";
+
 import {
   Visibility,
   VisibilityOff,
@@ -35,6 +34,7 @@ import {
   SendSharp,
   Rotate90DegreesCcw
 } from "@material-ui/icons";
+
 import { grey, common } from "@material-ui/core/colors";
 import {
   Terms,
@@ -42,7 +42,7 @@ import {
   InfoForm,
   SubInfoForm,
   ReportForm
-} from "./real-estate/add";
+} from "./estate/add";
 
 import classNames from "classnames";
 
@@ -63,7 +63,7 @@ const styles = theme => ({
   }
 });
 
-class RealEstateAdd extends Component {
+class EstateAdd extends Component {
   state = {
     steps: [
       "약관 동의",
@@ -83,7 +83,6 @@ class RealEstateAdd extends Component {
   };
 
   onDrop = (acceptedFiles, rejectedFiles, ...props) => {
-    console.log(props);
     const image = acceptedFiles[0];
     this.setState({ image: image });
   };
@@ -208,7 +207,7 @@ class RealEstateAdd extends Component {
           />
         </div>
         <CardContent>
-          <RealEstateInsert />
+          <EstateInsert />
         </CardContent>
       </CardActions>
     );
@@ -233,7 +232,7 @@ class RealEstateAdd extends Component {
           />
         </div>
         <CardContent>
-          <RealEstateInsert disabled={true} />
+          <EstateInsert disabled={true} />
           <Grid>추가 입력사항</Grid>
         </CardContent>
       </CardActions>
@@ -259,7 +258,7 @@ class RealEstateAdd extends Component {
           />
         </div>
         <CardContent>
-          <RealEstateInsert disabled={true} />
+          <EstateInsert disabled={true} />
         </CardContent>
       </CardActions>
     );
@@ -610,4 +609,4 @@ class RealEstateAdd extends Component {
 
 // export default withStyles(styles)(RealEstateAdd);
 
-export default withStyles(styles)(RealEstateAdd);
+export default withStyles(styles)(EstateAdd);

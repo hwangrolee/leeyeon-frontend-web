@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import classNames from 'classnames';
-import styles from './RealEstateInsert.scss';
+import styles from './EstateInsert.scss';
 import { withStyles } from "@material-ui/core/styles";
 import { Grid, TextField } from "@material-ui/core";
 

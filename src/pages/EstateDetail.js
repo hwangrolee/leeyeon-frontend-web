@@ -20,7 +20,7 @@ import "react-image-gallery/styles/scss/image-gallery-no-icon.scss";
 import styles from "../styles/_utils.scss";
 import classNames from "classnames";
 const cx = classNames.bind(styles);
-export default class RealEstateDetail extends Component {
+export default class EstateDetail extends Component {
   state = {
     isOpen: true,
     editing: false,

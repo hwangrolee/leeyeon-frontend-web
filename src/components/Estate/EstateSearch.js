@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class RealEstateSearch extends Component {
+export default class EstateSearch extends Component {
     state = {
         search: ''
     }

@@ -65,9 +65,9 @@ export default class Menu extends Component {
             <Typography variant="h6" color="inherit" style={{flexGrow:1}}>
                 <Link to="/">Proof of Residence</Link>
             </Typography>
-            <Link to="/real-estate/list" style={{}}>매물보기</Link>
+            <Link to="/estate/list" style={{}}>매물보기</Link>
             &emsp;&emsp;
-            <Link to="/real-estate/add">매물등록</Link>
+            <Link to="/estate/add">매물등록</Link>
             &emsp;&emsp;
             <Link to="/account">내정보</Link>
             &emsp;&emsp;

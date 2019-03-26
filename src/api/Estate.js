@@ -1,6 +1,6 @@
 import HttpClient from './HttpClient';
 
-class RealEstate {
+class Estate {
 
     /**
      * 매물을 검색한다.
@@ -36,4 +36,4 @@ class RealEstate {
     
 }
 
-export default (new RealEstate());
+export default (new Estate());

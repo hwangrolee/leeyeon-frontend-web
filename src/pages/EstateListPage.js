@@ -21,7 +21,7 @@ import {
 
 import { StarBorder, Info, Search as SearchIcon } from "@material-ui/icons";
 import { SearchBox } from '../components';
-import { RealEstateList, RealEstateSearch } from "components/RealEstate";
+import { EstateList, EstateSearch } from "components/Estate";
 import { Pagination } from "../components/Pagination";
 
 const styles = theme => ({
@@ -51,7 +51,7 @@ const styles = theme => ({
   }
 });
 
-class RealEstateListPage extends Component {
+class EstateListPage extends Component {
   state = {
     items: [
       {
@@ -223,7 +223,7 @@ class RealEstateListPage extends Component {
               md={3}
               style={{ cursor: "pointer" }}
               onClick={() => {
-                window.open("/real-estate/detail/" + item.id);
+                window.open("/estate/detail/" + item.id);
               }}
             >
               <Card>
@@ -254,4 +254,4 @@ class RealEstateListPage extends Component {
   }
 }
 
-export default withStyles(styles)(RealEstateListPage);
+export default withStyles(styles)(EstateListPage);

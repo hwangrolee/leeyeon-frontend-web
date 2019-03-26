@@ -5,10 +5,10 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, TimePicker, DatePicker, DateTimePicker } from 'material-ui-pickers';
 import { PaneltyRegisterModal } from '../Panelty';
 import classNames from "classnames";
-import styles from "./RealEstateSummary.scss";
+import styles from "./EstateSummary.scss";
 const cx = classNames.bind(styles);
 
-export default class RealEstateSummary extends Component {
+export default class EstateSummary extends Component {
   state = {
     id: 10,
     fee: 0,
@@ -56,7 +56,7 @@ export default class RealEstateSummary extends Component {
   };
 
   handleOpenNewWindow = e => {
-    window.open("/real-estate/detail/" + this.state.id);
+    window.open("/estate/detail/" + this.state.id);
   };
 
   handleOpenPaneltyRegisterModal = e => {
@@ -91,7 +91,6 @@ export default class RealEstateSummary extends Component {
   }
 
   render() {
-    console.log(this.state);
     const open = Boolean(this.state.showPaneltyPopoverTarget);
     return (
       <div>

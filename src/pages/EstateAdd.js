@@ -375,7 +375,7 @@ class EstateAdd extends Component {
                       onChange={this.handleChange}
                       value={this.state.username}
                       required={true}
-                      margin="normal"
+                      margin="dense"
                     />
                   </Grid>
                   <Grid item md={4} sm={4} className={cx("text-field")}>
@@ -389,56 +389,15 @@ class EstateAdd extends Component {
                       placeholder="proof@proof.kr"
                       onChange={this.handleChange}
                       value={this.state.email}
-                      margin="normal"
+                      margin="dense"
                     />
-                    {/* <FormControl
-                      style={{
-                        flexBasis: 200,
-                        marginTop: "16px",
-                        width: "100%"
-                      }}
-                    >
-                      <InputLabel htmlFor="adornment-email">이메일</InputLabel>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="text"
-                        label="이메일"
-                        fullWidth={true}
-                        required={true}
-                        placeholder="proof@proof.kr"
-                        onChange={this.handleChange}
-                        value={this.state.email}
-                        margin="normal"
-                        endAdornment={
-                          <InputAdornment position="end">
-                            <IconButton
-                              aria-label="Toggle visibility"
-                              onClick={this.handleSendEmail}
-                              style={{ padding: 1 }}
-                            >
-                              <Send
-                                color="primary"
-                                style={{ transform: "rotate(-30deg)" }}
-                              />
-                            </IconButton>
-                            <IconButton
-                              aria-label="Toggle visibility"
-                              onClick={this.handleSendEmail}
-                              style={{ padding: 1 }}
-                            >
-                              <Done style={{ color: "#6abd7d" }} />
-                            </IconButton>
-                          </InputAdornment>
-                        }
-                      />
-                    </FormControl> */}
+                    
                   </Grid>
                   <Grid item md={4} sm={4} className={cx("text-field")}>
                   <FormControl
                       style={{
                         flexBasis: 200,
-                        marginTop: "16px",
+                        marginTop: "8px",
                         width: "100%"
                       }}
                     >
@@ -453,11 +412,10 @@ class EstateAdd extends Component {
                         placeholder="010-1234-1234"
                         onChange={this.handleChange}
                         value={this.state.mobileNumber}
-                        margin="normal"
+                        margin="dense"
                         endAdornment={
                           <Grid>
-                            <Button color="disabled" style={{  marginTop: '-10px'}}  size="small" variant="outlined" onClick={this.handleSendCodeForVerifingPhone}>본인인증</Button>
-                            {/* <Button style={{ color: "#6abd7d"}} variant="outlined">인증</Button> */}
+                            <Button color="primary" style={{  marginTop: '-10px'}}  size="small" variant="outlined" onClick={this.handleSendCodeForVerifingPhone}>본인인증</Button>
                             <Dialog open={this.state.sendedCode}>
                               <DialogTitle>휴대폰 인증</DialogTitle>
                               <DialogContent>
@@ -470,44 +428,15 @@ class EstateAdd extends Component {
                               </DialogContent>
                               <DialogActions align="right">
                                 <Button variant="outlined" onClick={this.handleDialogClose}>취소</Button>
-                                <Button color="primary" variant="outlined">인증</Button>
+                                <Button variant="outlined" color="primary">인증</Button>
                               </DialogActions>
                             </Dialog>
                           </Grid>
-                          // <InputAdornment position="end">
-                          //   <IconButton
-                          //     aria-label="Toggle visibility"
-                          //     onClick={this.handleSendEmail}
-                          //     style={{ padding: 1 }}
-                          //   >
-                          //     <Send
-                          //       color="primary"
-                          //       style={{ transform: "rotate(-30deg)" }}
-                          //     />
-                          //   </IconButton>
-                          //   <IconButton
-                          //     aria-label="Toggle visibility"
-                          //     onClick={this.handleSendEmail}
-                          //     style={{ padding: 1 }}
-                          //   >
-                          //     <Done style={{ color: "#6abd7d" }} />
-                          //   </IconButton>
-                          // </InputAdornment>
+
                         }
                       />
                     </FormControl>
-                    {/* <TextField
-                      id="mobileNumber"
-                      name="mobileNumber"
-                      type="text"
-                      label="연락처"
-                      fullWidth={true}
-                      required={true}
-                      placeholder="010-1234-1234"
-                      onChange={this.handleChange}
-                      value={this.state.mobileNumber}
-                      margin="normal"
-                    /> */}
+                    
                   </Grid>
                   <Grid item xs={12} className={cx("text-field")}>
                     <TextField
@@ -520,7 +449,7 @@ class EstateAdd extends Component {
                       placeholder="서울특별시 xx구 xx동"
                       onChange={this.handleChange}
                       value={this.state.address}
-                      margin="normal"
+                      margin="dense"
                     />
                   </Grid>
                   <Grid item xs={12} className={cx("text-field")}>
@@ -533,7 +462,7 @@ class EstateAdd extends Component {
                       placeholder="부가설명"
                       onChange={this.handleChange}
                       value={this.state.detail}
-                      margin="normal"
+                      margin="dense"
                       multiline
                     />
                   </Grid>
@@ -544,8 +473,7 @@ class EstateAdd extends Component {
           <Grid item xs={12} align="right">
             <Button
               style={{ margin: 5 }}
-              color="disable"
-              margin="normal"
+              color="default"
               variant="outlined"
             >
               초기화
@@ -554,7 +482,6 @@ class EstateAdd extends Component {
               type="submit"
               style={{ margin: 5 }}
               color="primary"
-              margin="normarl"
               variant="outlined"
               // // to="add/report"
               // component={<RouterLink to="add/report" />}
@@ -563,50 +490,9 @@ class EstateAdd extends Component {
             </Button>
           </Grid>
         </Grid>
-        {/* <Stepper activeStep={activeStep} alternativeLabel>
-          {steps.map((label, index) => {
-            const props = {};
-            if (this.isStepSkipped(index)) {
-              props.completed = false;
-            }
-            return (
-              <Step key={label} {...props}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            );
-          })}
-        </Stepper>
-        <div>
-          <div style={{ marginTop: "3%", marginRight: "8%", marginLeft: "8%" }}>
-            <Card style={{ height: "40vw" }}>
-              {this.props.getStepContent(activeStep)}
-            </Card>
-            <div
-              style={{ textAlign: "right", display: "block", marginTop: "2%" }}
-            >
-              <Button
-                disabled={activeStep === 0}
-                onClick={this.handleBack}
-                className={classes.backButton}
-              >
-                Previous
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                disabled={activeStep === steps.length && this.handleDisable()}
-                onClick={this.handleNext}
-              >
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
-              </Button>
-            </div>
-          </div>
-        </div> */}
-      </form>
+              </form>
     );
   }
 }
-
-// export default withStyles(styles)(RealEstateAdd);
 
 export default withStyles(styles)(EstateAdd);

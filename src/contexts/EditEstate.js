@@ -2,9 +2,9 @@ import React, { Component, createContext } from "react";
 
 const Context = createContext();
 
-const { Provider, Consumer: EditRealEstateConsumer } = Context;
+const { Provider, Consumer: EditEstateConsumer } = Context;
 
-class EditRealEstateProvider extends Component {
+class EditEstateProvider extends Component {
 
   state = {
     steps: [
@@ -51,7 +51,6 @@ class EditRealEstateProvider extends Component {
   };
 
   render() {
-    console.log(this.state, this.actions);
     const { state, actions } = this;
     const value = { state, actions };
     return <Provider value={value}>{this.props.children}</Provider>;
@@ -59,16 +58,16 @@ class EditRealEstateProvider extends Component {
 }
 
 // HoC 사용
-function withEditRealEstate(WrappedComponent) {
-  return function WithEditRealEstate(props) {
+function withEditEstate(WrappedComponent) {
+  return function WithEditEstate(props) {
     return (
-      <EditRealEstateConsumer>
+      <EditEstateConsumer>
         {({ state, actions }) => (
           <WrappedComponent {...state} {...actions} {...props} />
         )}
-      </EditRealEstateConsumer>
+      </EditEstateConsumer>
     );
   };
 }
 
-export { EditRealEstateProvider, EditRealEstateConsumer, withEditRealEstate };
+export { EditEstateProvider, EditEstateConsumer, withEditEstate };

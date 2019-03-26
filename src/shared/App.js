@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Menu from 'components/Menu';
-import { Header, Body, Footer } from 'components/Layout';
-import { Home, About, Estate, Login, Logout, Signup, EstateList, EstateAdd, EstateDetail, Account } from 'pages';
-import { EditRealEstateProvider } from '../contexts/EditRealEstate';
+import { Body } from 'components/Layout';
+import { Home, About, Estate, EstateList, EstateAdd, EstateDetail, Account } from 'pages';
+import { EditEstateProvider } from '../contexts/EditEstate';
 
 class App extends Component {
   render() {
     return (
-     <EditRealEstateProvider>
+     <EditEstateProvider>
           <Menu/>
           <Body>
             <Route exact path="/" component={Home}/>
@@ -24,12 +24,9 @@ class App extends Component {
               <Route path="/about" component={About}/>
             </Switch>
           </Body>
-          {/* <Footer>
-            Footer
-          </Footer> */}
           
           
-     </EditRealEstateProvider> 
+     </EditEstateProvider> 
     )
   }
 }

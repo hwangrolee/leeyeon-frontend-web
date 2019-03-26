@@ -10,9 +10,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
-  Typography
 } from "@material-ui/core";
 import {} from "@material-ui/icons";
 
@@ -38,7 +36,6 @@ export default class SignupModal extends Component {
   _closeSendedEmailModal = e => {
     this.setState({ showSendedEmailModal: false });
   }
-
 
   handleChange = async e => {
     const { name, value, type, checked } = e.target;
@@ -89,7 +86,7 @@ export default class SignupModal extends Component {
 
     if(true) {
       // form 인증 성공
-      // TODO. 이메일 전송 시도
+      // TODO: 이메일 전송 시도
 
       this.props.close();
       this.setState({
@@ -110,6 +107,7 @@ export default class SignupModal extends Component {
           aria-labelledby="form-dialog-title"
         >
           <form onSubmit={this.handleSubmit}>
+            <DialogTitle align="center">회원가입</DialogTitle>
             <DialogContent>
                 <TextField
                     id="email"

@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Button } from "@material-ui/core";
 
-import { withEditRealEstate } from '../../../contexts/EditRealEstate';
+import { withEditEstate } from '../../../contexts/EditEstate';
 
 class Terms extends React.Component {
     render() {
@@ -34,4 +34,4 @@ class Terms extends React.Component {
     }
 }
 
-export default withEditRealEstate(Terms);
+export default withEditEstate(Terms);

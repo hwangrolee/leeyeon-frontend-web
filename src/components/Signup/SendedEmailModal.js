@@ -43,7 +43,7 @@ export default class SendedEmail extends Component {
       showStacker: true
     });
 
-    // TODO. 인증 이메일 전송 API 호출
+    // TODO: 인증 이메일 전송 API 호출
 
     this.interval = setInterval(() => {
       if (this.state.avaliableSendEmailTime === 0) {

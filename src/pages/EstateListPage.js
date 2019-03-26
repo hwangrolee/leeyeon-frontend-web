@@ -4,24 +4,15 @@ import {
   Grid,
   FormControl,
   InputLabel,
-  GridListTile,
-  GridListTileBar,
   Card,
   CardHeader,
   CardMedia,
   CardActions,
-  CardContent,
-  Paper,
   IconButton,
-  InputBase,
-  TextField,
-  InputAdornment,
   Input
 } from "@material-ui/core";
 
-import { StarBorder, Info, Search as SearchIcon } from "@material-ui/icons";
-import { SearchBox } from '../components';
-import { EstateList, EstateSearch } from "components/Estate";
+import { Search as SearchIcon } from "@material-ui/icons";
 import { Pagination } from "../components/Pagination";
 
 const styles = theme => ({
@@ -220,6 +211,7 @@ class EstateListPage extends Component {
           {items.map(item => (
             <Grid
               item
+              key={item.id}
               md={3}
               style={{ cursor: "pointer" }}
               onClick={() => {

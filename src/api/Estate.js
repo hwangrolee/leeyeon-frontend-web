@@ -1,36 +1,57 @@
 import HttpClient from './HttpClient';
+const httpClient = new HttpClient({ source: 'main'});
 
+/**
+ * @author leehwangro
+ * @version 1.0.0
+ * @class
+ * @classdesc 주거증명 정보 관련 API를 요청하기 위한 class 입니다.
+ */
 class Estate {
 
-    /**
-     * 매물을 검색한다.
-     * @param { page, size, q } param0
-     */
     findAll ({ page = 0, size = 10, q = '' }) {
-
+        if(q !== '') {
+            return httpClient.post('/MAI_0300', {
+                body: {
+                    search: q
+                }
+            });
+        }
+        return httpClient.post('/MAI_0100');
     }
 
     /**
-     * 하나의 매물을 검색한다.
-     * @param hash
+     * @description 하나의 매물을 검색한다.
+     * @param { number } seq
      */
-    findOneByHash (hash) {
-
+    findOneByHash (seq) {
+        return httpClient.post('/MAI_0200', {
+            body: {
+                contseq: seq
+            }
+        })
     }
     
     /**
      * 부동산 매물을 저장합니다.
-     * @param { title, images } param0
+     * @param { Object.<*> } obj
      */
-    insertRealEstate({ title, images, address,  ...obj }) {
+    insertEstate({ title, images, address,  ...obj }) {
+    }
+
+    /**
+     * @description 부동산 매물을 제거한다.
+     * @param hash
+     */
+    deleteEstate (hash) {
 
     }
 
     /**
-     * 부동산 매물을 제거한다.
-     * @param hash
+     * @description 방문예약 요청
+     * @param { number } seq 
      */
-    deleteRealEstate (hash) {
+    requestVisitReservation(seq) {
 
     }
     

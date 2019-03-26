@@ -108,7 +108,7 @@ export default class EstateDetail extends Component {
   };
 
   componentDidMount() {
-    // TODO. 상세 api 호출
+    // TODO: 상세 api 호출
     // const { realEstateId } = this.props.match.params;
   }
 

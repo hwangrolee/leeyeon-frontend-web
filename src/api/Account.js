@@ -58,6 +58,7 @@ class Account {
    * @returns {Policy } 
    */
   terms() {
+    
       return httpClient.post("/MEM_0200");
   }
 
@@ -128,7 +129,7 @@ class Account {
    * @returns { LoginResult }
    */
   login({ email, password, pushkey }) {
-    // TODO. 로그인을 위한 작업 진행
+    // TODO: 로그인을 위한 작업 진행
     return httpClient.post("/MEM_0500");
   }
 
@@ -163,7 +164,7 @@ class Account {
    * 로그아웃
    */
   logout() {
-    // TODO. 로그아웃 요청 후 세션 제거
+    // TODO: 로그아웃 요청 후 세션 제거
     return httpClient.post("/MEM_1300");
   }
 

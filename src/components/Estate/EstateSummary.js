@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Grid, Typography, Button, Chip } from "@material-ui/core";
-import { DoneOutline, Done, Delete, CalendarToday } from '@material-ui/icons';
+import { Done, CalendarToday } from '@material-ui/icons';
 import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider, TimePicker, DatePicker, DateTimePicker } from 'material-ui-pickers';
+import { MuiPickersUtilsProvider, DateTimePicker } from 'material-ui-pickers';
 import { PaneltyRegisterModal } from '../Panelty';
 import classNames from "classnames";
 import styles from "./EstateSummary.scss";
@@ -106,7 +106,7 @@ export default class EstateSummary extends Component {
   handleDeleteChip = e => {
     if(e) { e.stopPropagation() }
     if(window.confirm("방문예약을 취소하시겠습니까?")) {
-      // TODO. 방문 예약 취소 요청 
+      // TODO: 방문 예약 취소 요청 
       alert("방문예약을 취소했습니다.");
     } else {
     }
@@ -121,7 +121,7 @@ export default class EstateSummary extends Component {
   }
 
   handleChangeCalendar = date => {
-    // TODO. 예약날짜 변경 요청 후 성공하면 reservationDate 값 변경
+    // TODO: 예약날짜 변경 요청 후 성공하면 reservationDate 값 변경
     console.log( 'handleChangeCalendar')
   }
 

@@ -8,9 +8,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
-  Typography
 } from "@material-ui/core";
 import {} from "@material-ui/icons";
 
@@ -24,7 +22,6 @@ export default class LoginModal extends Component {
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    console.log("getDerivedStateFromProps", nextProps);
     return {
       open: nextProps.open
     };
@@ -63,6 +60,7 @@ export default class LoginModal extends Component {
           aria-labelledby="form-dialog-title"
         >
           <form onSubmit={this.handleSubmit}>
+          <DialogTitle align="center">로그인</DialogTitle>
             <DialogContent>
               <TextField
                 id="email"

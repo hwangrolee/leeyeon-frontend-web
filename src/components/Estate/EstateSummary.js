@@ -9,28 +9,35 @@ import styles from "./EstateSummary.scss";
 const cx = classNames.bind(styles);
 
 export default class EstateSummary extends Component {
+  pickerRef = null;
   state = {
-    id: 10,
-    fee: 0,
-    imageLink: "",
-    liked: false,
-    address: {
-      country: "",
-      city: "",
-      detail: "",
-      zipCode: ""
+    estateInfo : {
+      id: 10,
+      fee: 0,
+      imageLink: "",
+      liked: false,
+      address: {
+        country: "",
+        city: "",
+        detail: "",
+        zipCode: ""
+      },
+      type: "",
+      readDate: "",
+      roomCount: 0,
+      keywords: [],
+      price: 0,
+      reservationDate: new Date(),
     },
-    type: "",
-    readDate: "",
-    roomCount: 0,
-    keywords: [],
-    price: 0,
-    reservationDate: new Date(),
+    viewType: 0, // 0: 기본정보만, 1: 기본정보 + 페널티 + 방문요청, 2: 기본정보 + 페널티 + 방문확정
     showPaneltyRegisterModal: false, // required
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const now = new Date();
+
+    const { estateInfo = {}, type = 'default' } = nextProps;
+
     const {
       fee = 0,
       imageLink = "https://dubsism.files.wordpress.com/2017/12/image-not-found.png?w=547",
@@ -40,14 +47,36 @@ export default class EstateSummary extends Component {
       readDate = [now.getFullYear(), now.getMonth() + 1, now.getDate()].join(
         "."
       )
-    } = nextProps;
+    } = estateInfo;
+
+    let viewType = 0;
+    switch(type) {
+      case 'default':
+        viewType = 0;
+        break;
+      case 'type1':
+        viewType = 1;
+        break;
+      case 'type2':
+        viewType = 2;
+        break;
+      case 'type3':
+        viewType = 3;
+        break;
+      default: 
+        viewType = 0;
+        break;
+    }
 
     return {
-      fee: fee,
-      imageLink: imageLink,
-      liked: liked,
-      price: price,
-      readDate: readDate
+      estateInfo: {
+        fee: fee,
+        imageLink: imageLink,
+        liked: liked,
+        price: price,
+        readDate: readDate,
+      },
+      viewType: viewType
     };
   }
 
@@ -75,75 +104,94 @@ export default class EstateSummary extends Component {
   }
 
   handleDeleteChip = e => {
+    if(e) { e.stopPropagation() }
     if(window.confirm("방문예약을 취소하시겠습니까?")) {
+      // TODO. 방문 예약 취소 요청 
       alert("방문예약을 취소했습니다.");
     } else {
     }
   }
 
-  handleShowCalendar = e => {
+  handleShowCalendar = (e) => {
+    if(e !== undefined) {
+      e.stopPropagation();
+    }
+
+    this.pickerRef.open(e)
   }
 
-  handleChangeCalendar = e => {
-    console.log(
-      'handleChangeCalendar'
-    )
+  handleChangeCalendar = date => {
+    // TODO. 예약날짜 변경 요청 후 성공하면 reservationDate 값 변경
+    console.log( 'handleChangeCalendar')
   }
 
   render() {
-    const open = Boolean(this.state.showPaneltyPopoverTarget);
     return (
       <div>
         <Grid className={cx("container")} onClick={this.handleOpenNewWindow}>
         <Grid item xs={3} className={cx("title")}>
-          <img src={this.state.imageLink} />
+          <img src={this.state.estateInfo.imageLink} />
         </Grid>
         <Grid item xs={9} className={cx("content")}>
           <Grid className={cx("content-header")}>
             <Typography variant="caption" style={{flex: 1}}>
-              조회 날짜: {this.state.readDate}
+              조회 날짜: {this.state.estateInfo.readDate}
             </Typography>
-            <Chip
-              icon={<CalendarToday/>}
-              onClick={(e) => e.stopPropagation()}
-              onDelete={this.handleDeleteChip}
-              label="방문예정"
-              color="primary"
-              variant="outlined"
-              className={cx("content-align-right")}
-            />
-             <Chip
-              icon={<CalendarToday/>}
-              onClick={(e) => e.stopPropagation()}
-              deleteIcon={<Done/>}
-              onDelete={this.handleShowCalendar}
-              label="방문확정"
-              color="secondary"
-              variant="outlined"
-              className={cx("content-align-right")}
-            />
-            <Button
-              color="secondary"
-              size="small"
-              variant="outlined"
-              className={cx("content-align-right")}
-              onClick={this.handleOpenPaneltyRegisterModal}
-            >
-              패널티부과
-            </Button>
-            
+            {
+              this.state.viewType === 1 ? (
+                <Chip
+                icon={<CalendarToday/>}
+                value={this.state.estateInfo.reservationDate}
+                onChange={this.handleChangeCalendar}
+                onClick={this.handleShowCalendar}
+                onDelete={this.handleDeleteChip}
+                label="방문요청"
+                color="primary"
+                variant="outlined"
+                className={cx("content-align-right")}
+              />
+              ) : (<div></div>)
+            }
+            {
+              this.state.viewType === 2? (
+              <Chip
+                icon={<CalendarToday/>}
+                onClick={(e) => e.stopPropagation()}
+                deleteIcon={<Done/>}
+                onDelete={this.handleShowCalendar}
+                label="방문확정"
+                color="secondary"
+                variant="outlined"
+                className={cx("content-align-right")}
+              />
+              ): (<div></div>)
+            }
+            {
+             this.state.viewType === 3 ? (
+              <Button
+                color="secondary"
+                size="small"
+                variant="outlined"
+                className={cx("content-align-right")}
+                onClick={this.handleOpenPaneltyRegisterModal}
+              >
+                패널티부과
+              </Button>
+             ) : (<div></div>)
+           }
           </Grid>
           <Grid className={cx("content-body")}>
-            <Typography variant="h4">{this.state.price}원</Typography> &emsp;
+            <Typography variant="h4">{this.state.estateInfo.price}원</Typography> &emsp;
             <Typography
               variant="caption"
               className={cx("content-align-bottom")}
             >
-              수수료 {this.state.fee} ETH
+              수수료 {this.state.estateInfo.fee} ETH
             </Typography>
           </Grid>
           <Typography variant="body1">
-            {this.state.address.country} 강남구 연남동
+            {/* {this.state.estateInfo.address.country}  */}
+            강남구 연남동
           </Typography>
           <Typography variant="caption">
             간단설명 : 다세대 주택, 방 2, 화장실 1
@@ -156,7 +204,10 @@ export default class EstateSummary extends Component {
           onClose={this.handleClosePaneltyRegisterModal}
           
       />
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+<MuiPickersUtilsProvider utils={DateFnsUtils} >
+  <DateTimePicker style={{display: 'none'}} value={this.state.estateInfo.reservationDate} onChange={this.handleChangeCalendar} label="DateTimePicker" ref={(ref) => this.pickerRef = ref} disablePast showTodayButton />
+</MuiPickersUtilsProvider>
+      {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container  justify="space-around">
         <DateTimePicker
           label="Date time picker"
@@ -188,7 +239,7 @@ export default class EstateSummary extends Component {
             // onChange={this.handleDateChange}
           />
         </Grid>
-      </MuiPickersUtilsProvider>
+      </MuiPickersUtilsProvider> */}
       </div>
       
     );

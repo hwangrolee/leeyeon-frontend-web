@@ -11,7 +11,7 @@ import {
 import {} from "@material-ui/icons";
 
 import { EditAccount } from "../components/Account";
-import { RealEstateSummary } from "../components/RealEstate";
+import { EstateSummary } from "../components/Estate";
 
 export default class Account extends Component {
   state = {
@@ -73,19 +73,21 @@ export default class Account extends Component {
             {this.state.value === 0 && (
               <div style={{ marginTop: "50px" }}>
                 <EditAccount />
-                <EditAccount />
               </div>
             )}
             {this.state.value === 1 && (
               <div style={{ marginTop: '50px'}}>
-                <RealEstateSummary key={100} onClick={(e) => {
-                  console.log(e)
-                }}/>
-                {/* <RealEstateSummary key={200} /> */}
-
+                <EstateSummary key={100}/>
+                <EstateSummary key={101} type="type1"/>
+                <EstateSummary key={102} type="type2"/>
+                <EstateSummary key={103} type="type3"/>
               </div>
             )}
-            {this.state.value === 2 && <div>등록한 주거증명</div>}
+            {this.state.value === 2 && <div style={{ marginTop: '50px'}}>
+                <EstateSummary key={100}/>
+                <EstateSummary key={101}/>
+                <EstateSummary key={102}/>
+            </div>}
           </Grid>
         </Grid>
       </div>

@@ -57,9 +57,9 @@ export default class Menu extends Component {
       <div style={{flexGrow:1, marginBottom: '20px'}}>
         <AppBar position="static">
           <Toolbar style={{backgroundColor: '#007bff'}}>
-            <IconButton color="inherit" aria-label="Menu" style={{marginLeft: -12, marginRight: 20}}>
+            {/* <IconButton color="inherit" aria-label="Menu" style={{marginLeft: -12, marginRight: 20}}>
               <MenuIcon />
-            </IconButton>
+            </IconButton> */}
             <Typography variant="h6" color="inherit" style={{flexGrow:1}}>
                 <Link to="/">Proof of Residence</Link>
             </Typography>

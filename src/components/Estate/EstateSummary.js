@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 import { Grid, Typography, Button, Chip } from "@material-ui/core";
-import { Done, CalendarToday } from '@material-ui/icons';
-import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider, DateTimePicker } from 'material-ui-pickers';
-import { PaneltyRegisterModal } from '../Panelty';
+import { Done, CalendarToday } from "@material-ui/icons";
+import DateFnsUtils from "@date-io/date-fns";
+import { MuiPickersUtilsProvider, DateTimePicker } from "material-ui-pickers";
+import { withSnackbar } from 'notistack';
+import { PaneltyRegisterModal } from "../Panelty";
 import classNames from "classnames";
 import styles from "./EstateSummary.scss";
 const cx = classNames.bind(styles);
 
-export default class EstateSummary extends Component {
+class EstateSummary extends Component {
   pickerRef = null;
   state = {
-    estateInfo : {
+    estateInfo: {
       id: 10,
       fee: 0,
       imageLink: "",
@@ -27,16 +28,16 @@ export default class EstateSummary extends Component {
       roomCount: 0,
       keywords: [],
       price: 0,
-      reservationDate: new Date(),
+      reservationDate: new Date()
     },
     viewType: 0, // 0: 기본정보만, 1: 기본정보 + 페널티 + 방문요청, 2: 기본정보 + 페널티 + 방문확정
-    showPaneltyRegisterModal: false, // required
+    showPaneltyRegisterModal: false // required
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const now = new Date();
 
-    const { estateInfo = {}, type = 'default' } = nextProps;
+    const { estateInfo = {}, type = "default" } = nextProps;
 
     const {
       fee = 0,
@@ -50,20 +51,20 @@ export default class EstateSummary extends Component {
     } = estateInfo;
 
     let viewType = 0;
-    switch(type) {
-      case 'default':
+    switch (type) {
+      case "default":
         viewType = 0;
         break;
-      case 'type1':
+      case "type1":
         viewType = 1;
         break;
-      case 'type2':
+      case "type2":
         viewType = 2;
         break;
-      case 'type3':
+      case "type3":
         viewType = 3;
         break;
-      default: 
+      default:
         viewType = 0;
         break;
     }
@@ -75,6 +76,7 @@ export default class EstateSummary extends Component {
         liked: liked,
         price: price,
         readDate: readDate,
+        reservationDate: new Date()
       },
       viewType: viewType
     };
@@ -89,159 +91,147 @@ export default class EstateSummary extends Component {
   };
 
   handleOpenPaneltyRegisterModal = e => {
-    if(e !== undefined) {
+    if (e !== undefined) {
       e.stopPropagation();
     }
-    
-    this.setState({ showPaneltyRegisterModal: true});
-  }
+
+    this.setState({ showPaneltyRegisterModal: true });
+  };
 
   handleClosePaneltyRegisterModal = e => {
-    if(e !== undefined) {
+    if (e !== undefined) {
       e.stopPropagation();
     }
     this.setState({ showPaneltyRegisterModal: false });
+  };
+
+  handleSubmitPaneltyRegisterModal = e => {
+    // TODO: 패널티를 부과하는 API호출
+    this.props.enqueueSnackbar('패널티를 부과했습니다.', { variant: 'success' });
+    this.props.enqueueSnackbar('패널티를 부과하지 못했습니다.', { variant: 'error' });
+    this.handleClosePaneltyRegisterModal();
   }
 
   handleDeleteChip = e => {
-    if(e) { e.stopPropagation() }
-    if(window.confirm("방문예약을 취소하시겠습니까?")) {
-      // TODO: 방문 예약 취소 요청 
-      alert("방문예약을 취소했습니다.");
+    if (e) {
+      e.stopPropagation();
+    }
+    if (window.confirm("방문예약을 취소하시겠습니까?")) {
+      // TODO: 방문 예약 취소 요청
+      this.props.enqueueSnackbar('방문예약을 취소했습니다.', { variant: 'success' });
+      this.props.enqueueSnackbar('방문예약을 취소하지 못했습니다.', { variant: 'error' });
     } else {
     }
-  }
+  };
 
-  handleShowCalendar = (e) => {
-    if(e !== undefined) {
+  handleShowCalendar = e => {
+    if (e !== undefined) {
       e.stopPropagation();
     }
 
-    this.pickerRef.open(e)
-  }
+    this.pickerRef.open(e);
+  };
 
   handleChangeCalendar = date => {
     // TODO: 예약날짜 변경 요청 후 성공하면 reservationDate 값 변경
-    console.log( 'handleChangeCalendar')
-  }
+    console.log("handleChangeCalendar");
+  };
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Grid className={cx("container")} onClick={this.handleOpenNewWindow}>
-        <Grid item xs={3} className={cx("title")}>
-          <img src={this.state.estateInfo.imageLink} />
-        </Grid>
-        <Grid item xs={9} className={cx("content")}>
-          <Grid className={cx("content-header")}>
-            <Typography variant="caption" style={{flex: 1}}>
-              조회 날짜: {this.state.estateInfo.readDate}
-            </Typography>
-            {
-              this.state.viewType === 1 ? (
+          <Grid item xs={3} className={cx("title")}>
+            <img src={this.state.estateInfo.imageLink} />
+          </Grid>
+          <Grid item xs={9} className={cx("content")}>
+            <Grid className={cx("content-header")}>
+              <Typography variant="caption" style={{flex: 1}}>
+                조회 날짜: {this.state.estateInfo.readDate}
+              </Typography>
+              {this.state.viewType === 1 ? (
                 <Chip
-                icon={<CalendarToday/>}
-                value={this.state.estateInfo.reservationDate}
-                onChange={this.handleChangeCalendar}
-                onClick={this.handleShowCalendar}
-                onDelete={this.handleDeleteChip}
-                label="방문요청"
-                color="primary"
-                variant="outlined"
-                className={cx("content-align-right")}
-              />
-              ) : (<div></div>)
-            }
-            {
-              this.state.viewType === 2? (
-              <Chip
-                icon={<CalendarToday/>}
-                onClick={(e) => e.stopPropagation()}
-                deleteIcon={<Done/>}
-                onDelete={this.handleShowCalendar}
-                label="방문확정"
-                color="secondary"
-                variant="outlined"
-                className={cx("content-align-right")}
-              />
-              ): (<div></div>)
-            }
-            {
-             this.state.viewType === 3 ? (
-              <Button
-                color="secondary"
-                size="small"
-                variant="outlined"
-                className={cx("content-align-right")}
-                onClick={this.handleOpenPaneltyRegisterModal}
+                  icon={<CalendarToday />}
+                  value={this.state.estateInfo.reservationDate}
+                  onChange={this.handleChangeCalendar}
+                  onClick={this.handleShowCalendar}
+                  onDelete={this.handleDeleteChip}
+                  label={`방문요청 (${this.state.estateInfo.reservationDate})`}
+                  color="primary"
+                  variant="outlined"
+                  className={cx("content-align-right")}
+                />
+              ) : (
+                ''
+              )}
+              {this.state.viewType === 2 ? (
+                <Chip
+                  icon={<CalendarToday />}
+                  onClick={e => e.stopPropagation()}
+                  deleteIcon={<Done />}
+                  onDelete={this.handleShowCalendar}
+                  label={`방문확정 (${this.state.estateInfo.reservationDate})`}
+                  color="secondary"
+                  variant="outlined"
+                  className={cx("content-align-right")}
+                />
+              ) : (
+                ''
+              )}
+              {this.state.viewType === 3 ? (
+                <Button
+                  color="secondary"
+                  size="small"
+                  variant="outlined"
+                  className={cx("content-align-right")}
+                  onClick={this.handleOpenPaneltyRegisterModal}
+                >
+                  패널티부과
+                </Button>
+              ) : (
+                ''
+              )}
+            </Grid>
+            <Grid className={cx("content-body")}>
+              <Typography variant="h4">
+                {this.state.estateInfo.price}원
+              </Typography>{" "}
+              &emsp;
+              <Typography
+                variant="caption"
+                className={cx("content-align-bottom")}
               >
-                패널티부과
-              </Button>
-             ) : (<div></div>)
-           }
-          </Grid>
-          <Grid className={cx("content-body")}>
-            <Typography variant="h4">{this.state.estateInfo.price}원</Typography> &emsp;
-            <Typography
-              variant="caption"
-              className={cx("content-align-bottom")}
-            >
-              수수료 {this.state.estateInfo.fee} ETH
+                수수료 {this.state.estateInfo.fee} ETH
+              </Typography>
+            </Grid>
+            <Typography variant="body1">
+              {/* {this.state.estateInfo.address.country}  */}
+              강남구 연남동
+            </Typography>
+            <Typography variant="caption">
+              간단설명 : 다세대 주택, 방 2, 화장실 1
             </Typography>
           </Grid>
-          <Typography variant="body1">
-            {/* {this.state.estateInfo.address.country}  */}
-            강남구 연남동
-          </Typography>
-          <Typography variant="caption">
-            간단설명 : 다세대 주택, 방 2, 화장실 1
-          </Typography>
         </Grid>
-        
-      </Grid>
-      <PaneltyRegisterModal
+        <PaneltyRegisterModal
           open={this.state.showPaneltyRegisterModal}
           onClose={this.handleClosePaneltyRegisterModal}
-          
-      />
-<MuiPickersUtilsProvider utils={DateFnsUtils} >
-  <DateTimePicker style={{display: 'none'}} value={this.state.estateInfo.reservationDate} onChange={this.handleChangeCalendar} label="DateTimePicker" ref={(ref) => this.pickerRef = ref} disablePast showTodayButton />
-</MuiPickersUtilsProvider>
-      {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Grid container  justify="space-around">
-        <DateTimePicker
-          label="Date time picker"
-          value={this.state.reservationDate}
-          TextFieldComponent={(props) => <Chip
-            id={props.id}
-            icon={<CalendarToday/>}
-            value={props.value}
-            onChange={this.handleChangeCalendar}
-            onClick={(e) => { console.log(props); props.onClick(e)}}
-            onDelete={this.handleDeleteChip}
-            label="방문예정"
-            color="primary"
-            variant="outlined"
-            className={cx("content-align-right")}
-          />}
+          onSubmit={this.handleSubmitPaneltyRegisterModal}
         />
-          <DatePicker
-            margin="normal"
-            label="Date picker"
-            
-            // value={selectedDate}
-            // onChange={this.handleDateChange}
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <DateTimePicker
+            style={{ display: "none" }}
+            value={this.state.estateInfo.reservationDate}
+            onChange={this.handleChangeCalendar}
+            label="DateTimePicker"
+            ref={ref => (this.pickerRef = ref)}
+            disablePast
+            showTodayButton
           />
-          <TimePicker
-            margin="normal"
-            label="Time picker"
-            // value={selectedDate}
-            // onChange={this.handleDateChange}
-          />
-        </Grid>
-      </MuiPickersUtilsProvider> */}
-      </div>
-      
+        </MuiPickersUtilsProvider>
+      </React.Fragment>
     );
   }
 }
+
+export default withSnackbar(EstateSummary);

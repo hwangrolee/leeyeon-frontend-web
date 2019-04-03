@@ -5,20 +5,18 @@ import {
   Toolbar,
   Typography,
   Button,
-  IconButton
+  IconButton,
 } from "@material-ui/core";
-
 import { Menu as MenuIcon } from '@material-ui/icons';
-
-import { SignupModal, SendedEmailModal } from "../../components/Signup";
+import { SignupModal } from "../../components/Signup";
 import { LoginModal } from "../../components/Login";
+import AccountMenu from './AccountMenu';
 import styles from "./Menu.scss";
 import classNames from "classnames";
 
 const cx = classNames.bind(styles);
 
 export default class Menu extends Component {
-
   state = {
     isLogin: true,
     showLoginModal: false,
@@ -69,7 +67,8 @@ export default class Menu extends Component {
             &emsp;&emsp;
             <Link to="/estate/add">매물등록</Link>
             &emsp;&emsp;
-            <Link to="/account">내정보</Link>
+            {/* <Link to="/account">내정보</Link> */}
+            <AccountMenu/>
             &emsp;&emsp;
             &emsp;&emsp;
             {

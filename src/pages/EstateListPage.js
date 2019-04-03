@@ -13,7 +13,6 @@ import {
 } from "@material-ui/core";
 
 import { Search as SearchIcon } from "@material-ui/icons";
-import { Pagination } from "../components/Pagination";
 
 const styles = theme => ({
   root: {

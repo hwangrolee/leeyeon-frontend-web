@@ -47,7 +47,7 @@ export default class PaneltyRegisterModal extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.onClose();
+    this.props.onSubmit();
   };
 
   render() {

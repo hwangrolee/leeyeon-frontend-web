@@ -3,10 +3,11 @@
 
 .container {
     display: flex;
+    flex-direction: row;
     cursor: pointer;
     background-color: #f8fafd;
     margin-bottom: 15px;
-    
+    width: 100% !important;
 
     button {
         border-radius: 0;
@@ -20,10 +21,13 @@
     }
 
     .content {
+        // flex:1;
         padding: 10px;
+        // width: 100% !important;
 
         .content-header {
             display: flex;
+            // flex-direction: row;
         }
 
         .content-body {
@@ -31,22 +35,22 @@
             margin-bottom: 10px;
             align-items: center;
         }
+    }
 
-        .content-align-top {
-            align-self: flex-start;
-        }
+    .content-align-top {
+        align-self: flex-start;
+    }
 
-        .content-align-bottom {
-            align-self: flex-end;
-        }
+    .content-align-bottom {
+        align-self: flex-end;
+    }
 
-        .content-align-left {
-            align-self: flex-start;
-        }
+    .content-align-left {
+        align-self: flex-start;
+    }
 
-        .content-align-right {
-            // margin-left: auto;
-        }
+    .content-align-right {
+        align-self: end;
     }
 
     &:hover {

@@ -57,9 +57,6 @@ export default class Menu extends Component {
       <div style={{flexGrow:1, marginBottom: '20px'}}>
         <AppBar position="static">
           <Toolbar style={{backgroundColor: '#007bff'}}>
-            {/* <IconButton color="inherit" aria-label="Menu" style={{marginLeft: -12, marginRight: 20}}>
-              <MenuIcon />
-            </IconButton> */}
             <Typography variant="h6" color="inherit" style={{flexGrow:1}}>
                 <Link to="/">Proof of Residence</Link>
             </Typography>
@@ -67,7 +64,7 @@ export default class Menu extends Component {
             &emsp;&emsp;
             <Link to="/estate/add">매물등록</Link>
             &emsp;&emsp;
-            {/* <Link to="/account">내정보</Link> */}
+            {/* 내정보 */}
             <AccountMenu/>
             &emsp;&emsp;
             &emsp;&emsp;
@@ -79,13 +76,13 @@ export default class Menu extends Component {
             |
             {
               isLogin ? (
-                <Button color="inherit" size="small" style={{fontWeigh:900}} onClick={this._openSignupModal}>회원가입</Button>
+                <Button color="inherit" size="small" style={{fontWeight:900}} onClick={this._openSignupModal}>회원가입</Button>
               ): ''
             }
 
             {
               isLogin === false ? (
-                <Button color="inherit" size="small" style={{fontWeigh:900}}>로그아웃</Button>
+                <Button color="inherit" size="small" style={{fontWeight:900}}>로그아웃</Button>
               ) : ''
 
             }

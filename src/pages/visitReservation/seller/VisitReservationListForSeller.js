@@ -6,6 +6,7 @@ import {
 } from '@material-ui/core';
 import {  VisitReservationForBuyer as VisitReservationForBuyerAPI, VisitReservationForSeller as VisitReservationForSellerAPI } from '../../../api/VisitReservation';
 import { withSnackbar } from 'notistack';
+import TemplateForVisitReservationSeller from '../../../components/Estate/Template/TemplateForVisitReservationSeller';
 import { EstateSummary } from '../../../components/Estate';
 import Pagination from 'rc-pagination';
 import classNames from 'classnames';
@@ -43,11 +44,10 @@ class VisitReservationListForSeller extends Component {
                 <Grid container spacing={24}>
                     <Grid item xs={12}>
                         <Typography variant="h5">판매자 전용 - 방문예약 목록</Typography>
-                        <Link style={{color: 'black'}} target="_blank" to="/account/estate/seller/visit-reservation/detail/0" label="상세페이지로 이동(샘플 )">상세페이지로 이동(샘플 )</Link>
                     </Grid>
                     {
                         this.state.estateList.length > 0 ? (
-                            <React.Fragment>
+                            <Grid container spacing={24}>
                                 {
                                     this.state.estateList.map((estateInfo, index) => {
                                         return (
@@ -60,9 +60,18 @@ class VisitReservationListForSeller extends Component {
                                 <Grid item xs={12}>
                                     <Pagination total={this.state.pagination.totPage} current={this.state.pagination.curPage} onChange={this.handlePageChange}/>
                                 </Grid>
-                            </React.Fragment>
+                            </Grid>
                         ) : (
                             <React.Fragment>
+                                <Grid container spacing={24}>
+                                    <Grid item xs={12} key={0}>
+                                        <TemplateForVisitReservationSeller/>
+                                    </Grid>
+                                    <Grid item xs={12} key={1}>
+                                        <TemplateForVisitReservationSeller/>
+                                    </Grid>
+                                </Grid>
+                                
                                 <Typography>
                                     방문예약 접수건이 없습니다.
                                 </Typography>

@@ -64,6 +64,12 @@ class EstateSummary extends Component {
       case "type3":
         viewType = 3;
         break;
+      case "type4":
+        viewType = 4;
+        break;
+      case "type5":
+        viewType = 5;
+        break;
       default:
         viewType = 0;
         break;
@@ -137,6 +143,48 @@ class EstateSummary extends Component {
     console.log("handleChangeCalendar");
   };
 
+  _renderHeaderRight = () => {
+    switch (this.state.viewType) {
+      case 1:
+        return <Chip
+          icon={<CalendarToday />}
+          value={this.state.estateInfo.reservationDate}
+          onChange={this.handleChangeCalendar}
+          onClick={this.handleShowCalendar}
+          onDelete={this.handleDeleteChip}
+          label={`방문요청 (${this.state.estateInfo.reservationDate})`}
+          color="primary"
+          variant="outlined"
+          className={cx("content-align-right")}
+        />
+      case 2:
+        return <Chip
+          icon={<CalendarToday />}
+          onClick={e => e.stopPropagation()}
+          deleteIcon={<Done />}
+          onDelete={this.handleShowCalendar}
+          label={`방문확정 (${this.state.estateInfo.reservationDate})`}
+          color="secondary"
+          variant="outlined"
+          className={cx("content-align-right")}
+        />
+      case 3:
+        return <Button
+          color="secondary"
+          size="small"
+          variant="outlined"
+          className={cx("content-align-right")}
+          onClick={this.handleOpenPaneltyRegisterModal}>패널티부과</Button>
+      case 4:
+        return <React.Fragment>
+          <Button color="primary" size="small" variant="outlined" className={cx("content-align-right")}>수락</Button>
+          <Button color="secondary" size="small" variant="outlined" className={cx("content-align-right")}>거절</Button>
+        </React.Fragment>
+      default:
+        break;
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -191,6 +239,7 @@ class EstateSummary extends Component {
               ) : (
                 ''
               )}
+              {}
             </Grid>
             <Grid className={cx("content-body")}>
               <Typography variant="h4">

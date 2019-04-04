@@ -1,0 +1,52 @@
+$height: 20em;
+
+.ocr-form {
+    height: $height;
+    cursor: pointer;
+    .ocr-form-progress-wrap {
+        position: absolute;
+        height: $height;
+        width: 70%;
+    }
+
+    .ocr-form-progress-text {
+        position: inherit;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 800;
+        color: #7e00ff;
+    }
+
+    .ocr-form-progress {
+        height: $height;
+        background-color: #fff;
+        opacity: 0.1;
+    }
+
+    .ocr-form-image-wrap {
+        padding: 0;
+        height: inherit;
+        text-align: center;
+        
+        // margin-top: 0.5em;
+        // margin-bottom: 0.5em;
+    }
+
+    .ocr-form-image {
+        // padding-bottom: -30px ;
+        height: $height - 1em;
+        padding-top: 7.5px;
+        // padding-bottom: 10px;
+    }
+
+    .font-small {
+        font-size: 0.7em;
+        font-weight: 600;
+    }
+}

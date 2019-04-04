@@ -69,7 +69,7 @@ export default class VisitReservationListForBuyer extends Component {
                                     <Grid item xs={12} key={0}>
                                         <TemplateForVisitReservationBuyer/>
                                     </Grid>
-                                    <Grid item xs={12} key={0}>
+                                    <Grid item xs={12} key={1}>
                                         <TemplateForVisitReservationBuyer/>
                                     </Grid>
                                 </Grid>

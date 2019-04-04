@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Menu from "components/Menu";
 import { Body } from "components/Layout";
 import { SnackbarProvider } from "notistack";
+import { EstateAddFormProvider } from '../contexts/EstateAddForm';
 import {
   Home,
   About,
@@ -27,19 +28,19 @@ import {
   AddedEstate as AccountAddedEstate
 } from '../pages/account';
 
-import { EditEstateProvider } from "../contexts/EditEstate";
 import 'rc-pagination/assets/index.css';
 class App extends Component {
   render() {
     return (
       <SnackbarProvider
         maxSnack={3}
+        autoHideDuration={3000}
         anchorOrigin={{
           vertical: "top",
           horizontal: "center"
         }}
       >
-        <EditEstateProvider>
+       
           <Menu />
           <Body>
             <Route exact path="/" component={Home} />
@@ -55,7 +56,9 @@ class App extends Component {
                 component={EstateDetail}
               />
               <Route path="/estate/list" component={EstateList} />
+              <EstateAddFormProvider>
               <Route path="/estate/add" component={EstateAdd} />
+              </EstateAddFormProvider>
             </Switch>
             <Switch>
               <Route
@@ -96,7 +99,7 @@ class App extends Component {
               <Route path="/about" component={About} />
             </Switch>
           </Body>
-        </EditEstateProvider>
+         
       </SnackbarProvider>
     );
   }

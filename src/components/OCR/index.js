@@ -1,2 +1,1 @@
-export { default as OCR } from './OCR';
-export { default as OCRViewer } from './OCRViewer';
+export { default as OCRForm } from './OCRForm';

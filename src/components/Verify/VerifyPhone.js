@@ -1,104 +1,94 @@
 import React, { Component } from "react";
-import * as Icon from 'react-feather';
+import {
+    FormControl,
+    InputLabel,
+    Input,
+    Button,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    TextField,
+    Typography
+} from '@material-ui/core';
+import { withEstateForm } from '../../contexts/EstateAddForm';
+import { withSnackbar } from 'notistack';
 import styles from './VerifyPhone.scss';
 import classNames from 'classnames';
-
 const cx = classNames.bind(styles);
 
-export default class VerifyPhone extends Component {
+class VerifyPhone extends Component {
     state = {
-        firstName: '',
-        lastName: '',
-        mobileNumber: '',
-        sended: false,
-        verifyNumber: ''
+        openDialog: false,
+        timeout: 30, // 30s
+        interval: null
     }
 
     handleChange = (e) => {
+        const { name, value } = e.target;
+        this.setState({ [name]: value });
+        this.props.setValue(name, value);
+    }
+
+    handleSendCodeForVerifingPhone = (e) => {
         this.setState({
-            [e.target.name]: e.target.value
+            openDialog: true,
+            timeout: 30,
+            interval: setInterval(() => {
+                if(this.state.timeout === 0) {
+                    clearInterval(this.state.interval);
+                } 
+                this.setState(state => ({
+                    timeout: state.timeout - 1
+                }));
+            }, 1000)
         });
     }
 
-    handleVerifyPhone = (e) => {
+    handleCloseDialog = (e) => {
+        if(Boolean(this.state.interval)) {
+            clearInterval(this.state.interval);
+        }
         this.setState({
-            sended: true
+            openDialog: false,
+            timeout: 30,
+            interval: null
         })
     }
 
+    handleVerifyCode = (e) => {
+        this.props.enqueueSnackbar('정상적으로 인증되었습니다.', { variant: 'success' });
+        this.props.enqueueSnackbar('인증에 실패하셨습니다. 인증코드를 다시 입력하세요', { variant: 'error' });
+    }
+
     render () {
-        const { close } = this.props;
         return (
-            <div className={cx('verify-wrapper')}>
-
-             {
-                        this.state.sended ? (
-                                <p>
-                                    Check your mobile!
-                                    <br/>
-                                    We sent you a code via SMS
-                                </p>
-                        ) : (
-                                <p>
-                                    Your email is confirmed
-                                    <br/>
-                                    Next, add your name and mobile number
-                                </p>
-                        )
-                    }
-                
-                <form className={cx('verify-container')}>
-                    <div className={cx('verify-body')}>
-                        <div className={cx('form-row')}>
-                            <div className={cx('col-md-6')}>
-                                <div className={cx('form-group')}>
-                                    <label className={cx('label')}>First Name</label>
-                                    {/* <Input name="firstName" type="text" placeholder="Your first name" onChange={this.handleChange} value={this.state.firstName}/> */}
-                                </div>
-                            </div>
-                            <div className={cx('col-md-6')}>
-                                <div className={cx('form-group')}>
-                                    <label className={cx('label')}>Last Name</label>
-                                    {/* <Input name="lastName" type="text" placeholder="Your last name" onChange={this.handleChange} value={this.state.lastName}/> */}
-                                </div>
-                            </div>
-                        </div>
-                        <div className={cx('form-group')}>
-                            <label>Mobile number</label>
-                            {/* <Input name="mobileNumber" type="text" placeholder="Your mobile number" onChange={this.handleChange} value={this.state.mobilenumber}/> */}
-                        </div>
-
-                        <div className={cx('form-group', this.state.sended ? 'show': 'hide')}>
-                            {/* <Input id="verifyNumber" name="verifyNumber" type="text" placeholder="Enter your code" onChange={this.handleChange} value={this.state.verifyNumber}/> */}
-                        </div>
-                    </div>
-                    <div className={cx('verify-footer')}>
-                        {
-                            this.state.sended ? (
-                                <div className={cx('input-group')}>
-                                    {/* <Button type="submit" className={cx('button')} color="primary">Submit code</Button> */}
-                                </div>
-                            ) : (
-                                <div>
-                                    <div className={cx('info')}>
-                                        <div className={cx('info-left')}>
-                                            <Icon.Lock className={cx('icon')}/>
-                                        </div>
-                                        <div className={cx('info-right')}>
-                                            Add your mobile number for an extra layer of security on your account
-                                        </div>
-                                    </div>
-                                    {/* <Button className={cx('button')} color="primary" onClick={this.handleVerifyPhone}>Verify your mobile number</Button> */}
-                                </div>
-                            )
+            <FormControl fullWidth={true} required={true}>
+                <InputLabel htmlFor="adornment-contractß">연락처</InputLabel>
+                    <Input name="mobileNumber" type="text" label="연락처" fullWidth={true} required={true} placeholder="010-1234-1234" onChange={this.handleChange} value={this.state.mobileNumber} margin="dense"
+                        endAdornment={
+                            <React.Fragment>
+                                <Button color="primary" style={{  marginTop: '-10px'}}  size="small" variant="outlined" onClick={this.handleSendCodeForVerifingPhone}>본인인증</Button>
+                                <Dialog open={this.state.openDialog} onClose={this.handleCloseDialog} maxWidth="xl">
+                                    <DialogTitle>휴대폰 인증</DialogTitle>
+                                    <DialogContent>
+                                        <Typography variant="caption">
+                                            <strong>{this.state.mobileNumber}</strong>로 인증번호를 발송했습니다. 
+                                            <br/>확인 후 숫자를 입력해주세요.
+                                            </Typography>
+                                        <TextField id="verifyCode" name="verifyCode" type="number" fullWidth={true} helperText={ this.state.timeout >= 0 ? (<div align="right">{this.state.timeout}초</div>) : (<div align="right">0초</div>)}/>
+                                    </DialogContent>
+                                    <DialogActions align="right">
+                                        <Button variant="outlined" color="default" onClick={this.handleCloseDialog}>취소</Button>
+                                        <Button variant="outlined" color="primary" onClick={this.handleVerifyCode}>인증</Button>
+                                    </DialogActions>
+                                </Dialog>
+                            </React.Fragment>
                         }
-                    </div>
-                </form>
-                <div className={cx('small')}>
-                    <small><a href="#close-verify-phone" onClick={close}>Skip for now</a></small>
-                </div>
-            </div>
-            
+                    />
+            </FormControl>
         )
     }
 }
+
+export default withEstateForm(withSnackbar(VerifyPhone));

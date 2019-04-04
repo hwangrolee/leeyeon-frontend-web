@@ -65,10 +65,13 @@ class VisitReservationListForSeller extends Component {
                             <React.Fragment>
                                 <Grid container spacing={24}>
                                     <Grid item xs={12} key={0}>
-                                        <TemplateForVisitReservationSeller/>
+                                        <TemplateForVisitReservationSeller estateInfo={{estateId: 0, status: 0}}/>
                                     </Grid>
                                     <Grid item xs={12} key={1}>
-                                        <TemplateForVisitReservationSeller/>
+                                        <TemplateForVisitReservationSeller estateInfo={{estateId: 1, status: 1}}/>
+                                    </Grid>
+                                    <Grid item xs={12} key={2}>
+                                        <TemplateForVisitReservationSeller estateInfo={{estateId: 2, status: 2}}/>
                                     </Grid>
                                 </Grid>
                                 

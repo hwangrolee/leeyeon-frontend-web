@@ -5,15 +5,12 @@ import {
   Toolbar,
   Typography,
   Button,
-  IconButton,
 } from "@material-ui/core";
-import { Menu as MenuIcon } from '@material-ui/icons';
 import { SignupModal } from "../../components/Signup";
 import { LoginModal } from "../../components/Login";
 import AccountMenu from './AccountMenu';
 import styles from "./Menu.scss";
 import classNames from "classnames";
-
 const cx = classNames.bind(styles);
 
 export default class Menu extends Component {

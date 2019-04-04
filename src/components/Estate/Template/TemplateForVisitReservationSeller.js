@@ -26,18 +26,36 @@ const cx = classNames.bind(styles);
 class TemplateForVisitReservation extends Component {
 
     state = {
-        openDialog: false,
-        dialogMode: '',
-        estateInfo: {
-            id: 0,
-            fee: '1,000',
-            price: '1,000,000',
-            imageLink: 'https://dubsism.files.wordpress.com/2017/12/image-not-found.png?w=547',
-            readDate: '2019년 01월 10일 10시 20분',
-            area: '서울특별시 강남구 연남동 근처',
-            reserveDate: '2019년 02월 01일 15시 30분',
-            keyword: '다세대 주택, 방2, 화장실1, 거실',
-            status: 2 // 0: 대기중, 1: 수락, 2: 거절
+    }
+
+    static getDerivedStateFromProps(nextProps = { estateInfo : {}}, prevState) {
+        console.log(nextProps)
+        const {
+            estateId = 0,
+            fee = 0,
+            price = 0,
+            imageLink = 'https://dubsism.files.wordpress.com/2017/12/image-not-found.png?w=547',
+            readDate = '2019년 01월 10일 10시 20분',
+            area = '서울특별시 강남구 연남동 근처',
+            reserveDate = '2019년 02월 01일 15시 30분',
+            keyword = '다세대 주택, 방2, 화장실1, 거실',
+            status = 2 // 0: 대기중, 1: 수락, 2: 거절
+        } = nextProps.estateInfo;
+
+        return {
+            openDialog: false,
+            dialogMode: '',
+            estateInfo: {
+                estateId: estateId,
+                fee: fee,
+                price: price,
+                imageLink: imageLink,
+                readDate: readDate,
+                area: area,
+                reserveDate: reserveDate,
+                keyword: keyword,
+                status: status // 0: 대기중, 1: 수락, 2: 거절
+            }
         }
     }
 
@@ -46,7 +64,7 @@ class TemplateForVisitReservation extends Component {
      * @description 새로운 윈도우로 상세페이지를 연다.
      */
     _openNewWindow = () => {
-        window.open("/account/estate/seller/visit-reservation/detail/" + this.state.estateInfo.id);
+        window.open("/account/estate/seller/visit-reservation/detail/" + this.state.estateInfo.estateId);
     }
 
     _openDialog = (e, mode = '') => {

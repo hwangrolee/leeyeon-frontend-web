@@ -12,10 +12,8 @@ import {
   Snackbar,
   SnackbarContent
 } from "@material-ui/core";
+
 import {
-  Send,
-  SendOutlined,
-  Email,
   EmailOutlined,
   InfoOutlined
 } from "@material-ui/icons";

@@ -36,7 +36,7 @@ export default class Login extends Component {
         const { email, password } = this.state;
         return (
             <form className={cx('login-wrapper')} onSubmit={this.handleSubmit}>
-                <div className={cx('form-group')}>
+                {/* <div className={cx('form-group')}>
                     <label className={cx('label-for')} for="email">Email</label>
                     <input id="email" name="email" type="email" placeholder="이메일을 입력하세요" value={email}/>
                 </div>
@@ -45,7 +45,7 @@ export default class Login extends Component {
                     <input id="password" name="password" type="password" placeholder="비밀번호를 입력하세요" value={password}/>
                 </div>
                 <hr/>
-                <button className={cx('submit')} type="submit" color="primary">Login</button>
+                <button className={cx('submit')} type="submit" color="primary">Login</button> */}
             </form>
         )
     }

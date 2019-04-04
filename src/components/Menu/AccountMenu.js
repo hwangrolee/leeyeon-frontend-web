@@ -7,8 +7,7 @@ import {
     ClickAwayListener,
     Grow,
     Paper,
-    Popper,
-    Button
+    Popper
 } from '@material-ui/core';
 
 export default class AccountMenu extends Component {
@@ -46,34 +45,26 @@ export default class AccountMenu extends Component {
     render () {
         return (
             <React.Fragment>
-                <a
-                    aria-owns={this.anchorEl ? 'simple-menu' : undefined}
-                    aria-haspopup="true"
-                    onClick={this.handleClick}
-                >내정보</a>
+                <a aria-owns={this.anchorEl ? 'simple-menu' : undefined} aria-haspopup="true" onClick={this.handleClick}>내정보</a>
                 <Popper open={Boolean(this.state.anchorEl)} anchorEl={this.state.anchorEl} transition>
                     {({ TransitionProps, placement }) => (
-                        <Grow
-                            {...TransitionProps}
-                            id="menu-list-grow"
-                            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-                        >
+                        <Grow {...TransitionProps} id="menu-list-grow" style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}>
                             <Paper>
-                            <ClickAwayListener onClickAway={this.handleClose}>
-                                <MenuList>
-                                {
-                                    this.state.menus.map((menu, index) => {
-                                        return (
-                                            <Link key={index} to={menu.link}>
-                                                <MenuItem >
-                                                    {menu.title}
-                                                </MenuItem>
-                                            </Link>
-                                        )
-                                    })
-                                }
-                                </MenuList>
-                            </ClickAwayListener>
+                                <ClickAwayListener onClickAway={this.handleClose}>
+                                    <MenuList>
+                                    {
+                                        this.state.menus.map((menu, index) => {
+                                            return (
+                                                <Link key={index} to={menu.link}>
+                                                    <MenuItem >
+                                                        {menu.title}
+                                                    </MenuItem>
+                                                </Link>
+                                            )
+                                        })
+                                    }
+                                    </MenuList>
+                                </ClickAwayListener>
                             </Paper>
                         </Grow>
                     )}

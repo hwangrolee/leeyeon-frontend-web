@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { VerifyEmail, VerifyPhone } from 'components/Verify';
-import Popup from 'reactjs-popup';
 import RegExp from 'lib/RegExp';
 import classNames from 'classnames';
 import styles from './Signup.scss';

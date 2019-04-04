@@ -9,7 +9,8 @@ import {
   TableRow,
   TableCell,
   TableHead,
-  TableFooter
+  TableFooter,
+  Typography
 } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import Lightbox from "react-images";
@@ -180,10 +181,13 @@ export default class EstateDetail extends Component {
             <Grid container spacing={16}>
               <Grid item md={12} sm={12}>
                 {/* <div align="center"> */}
-                {this.getTitle({
-                  price: detail.price,
-                  type: detail.productType
-                })}
+                <Typography>
+              {this.getTitle({
+                price: detail.price,
+                type: detail.productType
+              })}
+                </Typography>
+                
                 {/* </div> */}
               </Grid>
               <Grid item md={12} sm={12}>

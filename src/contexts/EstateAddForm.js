@@ -12,7 +12,8 @@ class EstateAddFormProvider extends Component {
         address: '',
         content: '',
         price: '',
-        builtDate: '',
+        buildingName: '',
+        builtYear: '',
         floor: '',
         size: '',
         options: {},
@@ -21,6 +22,18 @@ class EstateAddFormProvider extends Component {
     actions = {
         setValue: (key, value) => {
             this.setState({ [key]: value });
+        },
+        getEstateInfo: () => {
+            const { image, address, buildingName, builtYear, size, content, options } = this.state;
+            return {
+                image: image,
+                address: address,
+                buildingName: buildingName,
+                builtYear: builtYear,
+                size: size,
+                content: content,
+                options: options
+            }
         }
     }
 

@@ -32,7 +32,11 @@ class Account {
    * @returns { Version }
    */
   checkVersion() {
-    return httpClient.post("/MEM_0100");
+    return httpClient.post("/MEM_0100", { 
+      body: {
+        cmd: "MEM_0100"
+      }
+    });
   }
 
     /**
@@ -58,8 +62,11 @@ class Account {
    * @returns {Policy } 
    */
   terms() {
-    
-      return httpClient.post("/MEM_0200");
+      return httpClient.post("/MEM_0200", { 
+        body: {
+          cmd: "MEM_0200"
+        }
+      });
   }
 
   /**
@@ -77,7 +84,12 @@ class Account {
    */
   validatePassword(password) {
     // 비밀번호 유효성 검사
-    return httpClient.post("/MEM_0300");
+    return httpClient.post("/MEM_0300", { 
+      body: {
+        password: password,
+        cmd: "MEM_0300"
+      }
+    });
   }
 
   /**
@@ -102,8 +114,14 @@ class Account {
    * @param { string } account.password - 비밀번호 
    * @returns { SignupResult }
    */
-  signup({email, password}) {
-    return httpClient.post("/MEM_0400");
+  signup({ email, password }) {
+    return httpClient.post("/MEM_0400", { 
+      body: {
+        email: email,
+        password: password,
+        cmd: "MEM_0400"
+      }
+    });
   }
 
   /**
@@ -128,28 +146,50 @@ class Account {
    * @param { string } login.pushkey - 로그인을 위한 푸시키
    * @returns { LoginResult }
    */
-  login({ email, password, pushkey }) {
+  login({ email, password, pushkey ="" }) {
     // TODO: 로그인을 위한 작업 진행
-    return httpClient.post("/MEM_0500");
+    return httpClient.post("/MEM_0500", { 
+      body: {
+        email: email,
+        password: password,
+        pushkey: pushkey,
+        cmd: "MEM_0500"
+      }
+    });
   }
 
   /**
    * 자동로그인
    */
   loginAutomatically() {
-    return httpClient.post("/MEM_0600");
+    return httpClient.post("/MEM_0700", {
+      body: {
+        cmd: "MEM_0700"
+      }
+    });
   }
 
   updatePushkey() {
-    return httpClient.post("/MEM_1000");
+    return httpClient.post("/MEM_1000", {
+      body: {
+        cmd: "MEM_1000"
+      }
+    });
   }
 
   /**
    * 휴대폰 인증을 위해 인증코드를 요청한다.
    * @param { phoneNumber } phoneNumber
    */
-  requestVerificationCode(phoneNumber) {
-    return httpClient.post("/MEM_1100");
+  requestVerificationCode({ username, phoneNumber, nationNumber = 82 }) {
+    return httpClient.post("/MEM_1200", { 
+      body: {
+        username: username,
+        natphno: nationNumber,
+        phoneno: phoneNumber,
+        cmd: "MEM_1200"
+      }
+    });
   }
 
   /**
@@ -157,7 +197,12 @@ class Account {
    * @param { verificationCode } verificationCode
    */
   verifyVerificationCode(verificationCode) {
-    return httpClient.post("/MEM_1200");
+    return httpClient.post("/MEM_1300", { 
+      body: {
+        authkey: verificationCode,
+        cmd: "MEM_1300"
+      }
+    });
   }
 
   /**
@@ -165,7 +210,11 @@ class Account {
    */
   logout() {
     // TODO: 로그아웃 요청 후 세션 제거
-    return httpClient.post("/MEM_1300");
+    return httpClient.post("/MEM_1400", {
+      body: {
+        cmd: "MEM_1400"
+      }
+    });
   }
 
   /**
@@ -173,7 +222,11 @@ class Account {
    * @param { email } param0
    */
   remove({ email }) {
-    return httpClient.post("/MEM_1400");
+    return httpClient.post("/MEM_1500", {
+      body: {
+        cmd: "MEM_1500"
+      }
+    });
   }
 
   /**
@@ -181,7 +234,12 @@ class Account {
    * @param { string } email
    */
   changeEmail(email) {
-    return httpClient.post("MEM_1500");
+    return httpClient.post("MEM_1600", {
+      body: {
+        email: email,
+        cmd: "MEM_1600"
+      }
+    });
   }
 
   /**

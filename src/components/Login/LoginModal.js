@@ -11,6 +11,7 @@ import {
   DialogTitle,
 } from "@material-ui/core";
 import {} from "@material-ui/icons";
+import { Account as AccountAPI } from '../../api';
 
 const cx = classNames.bind(styles);
 
@@ -38,15 +39,21 @@ export default class LoginModal extends Component {
     });
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
+    e.preventDefault();
+
     const { email, password } = this.state;
     if (RegExp.verifyEmail(email) === false) {
       return false;
     }
 
-    if (RegExp.verifyPassword(password) === false) {
-      return false;
-    }
+    // if (RegExp.verifyPassword(password) === false) {
+    //   return false;
+    // }
+
+    await AccountAPI.login({ email: this.state.email, password: this.state.password }).then(res => {
+      console.log(res);
+    })
 
     return true;
   };

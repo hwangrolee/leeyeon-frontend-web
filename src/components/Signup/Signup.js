@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import RegExp from 'lib/RegExp';
 import classNames from 'classnames';
 import styles from './Signup.scss';
+import { withSnackbar } from 'notistack';
+import { Account } from '../../api';
 
 const cx = classNames.bind(styles);
 
 /**
  * 회원가입 컴포넌트
  */
-export default class Signup extends Component {
+class Signup extends Component {
     state = {
         email: '',
         password: '',
@@ -37,18 +39,25 @@ export default class Signup extends Component {
         });
     }
 
-    verifyFormData = () => {
+     verifyFormData = async () => {
         const { email, password, rpassword, terms } = this.state;
+        console.log('varifyFormData');
+        // if (RegExp.verifyEmail(email) === false) {
+        //     this.props.enqueueSnackbar('비밀번호', { variant: 'error' });
+        //     return false;
+        // }
 
-        if (RegExp.verifyEmail(email) === false) {
-            console.log('incorrect email');
-            return false;
-        }
+        // if(RegExp.verifyPassword(password) === false) {
+        //     console.log('incorrect password');
+        //     return false;
+        // }
 
-        if(RegExp.verifyPassword(password) === false) {
-            console.log('incorrect password');
-            return false;
-        }
+        await Account.validatePassword(password).then(res => {
+            console.log(res);
+        }).catch(error => {
+            console.log(error);
+            this.props.enqueueSnackbar('비밀번호의 확인하세요', { variant: 'error' });
+        })
 
         if(password !== rpassword) {
             return false;
@@ -64,7 +73,13 @@ export default class Signup extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        return this.verifyFormData();
+        this.verifyFormData();
+        // if() {
+        //     this.props.enqueueSnackbar('패널티를 부과했습니다.', { variant: 'success' });
+        // } else {
+            
+        // }
+        return false;
     }
 
     render () {
@@ -132,3 +147,5 @@ export default class Signup extends Component {
         )
     }
 }
+
+export default withSnackbar(Signup);

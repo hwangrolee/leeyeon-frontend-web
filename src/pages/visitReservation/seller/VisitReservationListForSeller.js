@@ -4,7 +4,7 @@ import {
     Grid,
     Typography
 } from '@material-ui/core';
-import {  VisitReservationForBuyer as VisitReservationForBuyerAPI, VisitReservationForSeller as VisitReservationForSellerAPI } from '../../../api/VisitReservation';
+import {  VisitReservationForBuyer as VisitReservationForBuyerAPI, VisitReservationForSeller as VisitReservationForSellerAPI } from '../../../api';
 import { withSnackbar } from 'notistack';
 import TemplateForVisitReservationSeller from '../../../components/Estate/Template/TemplateForVisitReservationSeller';
 import { EstateSummary } from '../../../components/Estate';

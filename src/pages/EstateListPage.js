@@ -7,7 +7,8 @@ import {
   Input,
 } from "@material-ui/core";
 import Pagination from 'rc-pagination';
-
+import { Estate as EstateAPI} from '../api';
+import EstateModel from '../lib/models/EstateModel';
 import { Search as SearchIcon } from "@material-ui/icons";
 import Square from '../components/Estate/Template/Square';
 
@@ -87,15 +88,24 @@ class EstateListPage extends Component {
 
   componentDidMount () {
     // TODO: state에 있는 pagination 정보로 데이터를 불러온다.
-
+    EstateAPI
+      .findAll({ page: this.state.pagination.curPage })
+      .then(estateList => {
+        this.setState({
+          estateList: estateList.map(estate => {
+            return new EstateModel(estate).toSimple()
+          })
+        });
+      })
   }
 
-  handlePageChange = (page) => {
+  handlePageChange = async (page) => {
     const pagination = Object.assign(this.state.pagination, {});
     pagination.curPage = page;
-    this.setState({
+    await this.setState({
         pagination: pagination
-    })
+    });
+    this.componentDidMount();
   }
 
   handleSubmit = (e) => {

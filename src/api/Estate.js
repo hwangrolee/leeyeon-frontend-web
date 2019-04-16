@@ -9,26 +9,32 @@ const httpClient = new HttpClient({ source: 'main'});
  */
 class Estate {
 
-    findAll ({ page = 0, size = 10, q = '' }) {
+    findAll ({ page = 1, q = '' }) {
         if(q !== '') {
             return httpClient.post('/MAI_0300', {
                 body: {
-                    search: q
+                    search: q,
+                    pageno: page,
+                    'cmd': 'MAI_0300',
                 }
             });
         }
-        return httpClient.post('/MAI_0100');
+        return httpClient.post('/MAI_0100', {
+            body: { pageno: page, cmd: 'MAI_0100', },
+        });
     }
 
     /**
      * @description 하나의 매물을 검색한다.
-     * @param { number } seq
+     * @param { number } id
      */
-    findOneByHash (seq) {
+    findOneById (id) {
+        const data = {
+            contseq: id, 
+            'cmd': 'MAI_0200'
+        }
         return httpClient.post('/MAI_0200', {
-            body: {
-                contseq: seq
-            }
+            body: data
         })
     }
     
@@ -36,7 +42,24 @@ class Estate {
      * 부동산 매물을 저장합니다.
      * @param { Object.<*> } obj
      */
-    insertEstate({ title, images, address,  ...obj }) {
+    insertEstate(estateInfo) {
+        const data = {
+            paddr: estateInfo.address,
+            paptnm: estateInfo.buildingName,
+            pyear: estateInfo.builtYear,
+            psize: estateInfo.size,
+            popt1: Object.keys(estateInfo.options).join(','),
+            popt2: estateInfo.content,
+            imgfile: estateInfo.image,
+            cmd: "CON_1000"
+        }
+        return new HttpClient({ source: 'cont'}).post('/CON_1000', {
+            body: data,
+        }, {
+            headers: {
+                'Content-Type': 'multipart/form-data;'
+            }
+        });
     }
 
     /**

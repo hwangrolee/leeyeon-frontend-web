@@ -3,6 +3,8 @@ import RegExp from "lib/RegExp";
 import classNames from "classnames";
 import styles from "./SignupModal.scss";
 import SendedEmailModal from './SendedEmailModal';
+import { withSnackbar } from 'notistack';
+import { Account } from '../../api';
 
 import {
   Button,
@@ -19,7 +21,7 @@ const cx = classNames.bind(styles);
 /**
  * 회원가입 컴포넌트
  */
-export default class SignupModal extends Component {
+ class SignupModal extends Component {
   state = {
     email: "",
     password: "",
@@ -28,6 +30,8 @@ export default class SignupModal extends Component {
     disabled: false,
     showSendedEmailModal: false,
   };
+
+  componentDidMount() {}
 
   _openSendedEmailModal = e => {
     this.setState({ showSendedEmailModal: true });
@@ -51,26 +55,32 @@ export default class SignupModal extends Component {
         });
         break;
     }
-
-    // this.setState({
-    //   disabled: this.verifyFormData() === false
-    // });
   };
 
-  verifyFormData = () => {
+  verifyFormData = async () => {
     const { email, password, rpassword, terms } = this.state;
 
     if (RegExp.verifyEmail(email) === false) {
       console.log("incorrect email");
+      this.props.enqueueSnackbar(`${email}은 이메일 양식이 아닙니다.`, { variant: 'success' });
       return false;
     }
 
-    if (RegExp.verifyPassword(password) === false) {
-      console.log("incorrect password");
-      return false;
-    }
+    await Account.validatePassword(password).then(res => {
+      const { result, message, data } = res;
+      const code = parseInt(result);
+      if(code !== 200) {
+        this.props.enqueueSnackbar(message, { variant: 'error' });
+      } else {
+        this.props.enqueueSnackbar(`Level ${data.passlevel}. 인증되었습니다.`, { variant: 'success' });
+      }
+    }).catch(error => {
+        this.props.enqueueSnackbar('서버와의 통신이 원홀하지 않습니다.', { variant: 'error' });
+    });
+
 
     if (password !== rpassword) {
+      this.props.enqueueSnackbar('비밀번호가 다릅니다.', { variant: 'error' });
       return false;
     }
 
@@ -81,21 +91,27 @@ export default class SignupModal extends Component {
     return true;
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
-
-    if(true) {
-      // form 인증 성공
-      // TODO: 이메일 전송 시도
-
-      this.props.close();
-      this.setState({
-        showSendedEmailModal: true,
-      })
-    } else {
-      // form 인증 실패.
-      return false;
+    this.verifyFormData();
+    const data = {
+      email: this.state.email,
+      password: this.state.password
     }
+    
+    Account.signup(data).then(res => {
+      const { result, message, data } = res;
+      
+      const code = parseInt(result);
+      if(code === 200) {
+        const { status, userKey } = data;
+        if(parseInt(status) === 1) {
+          localStorage.setItem('userKey', userKey)
+        }
+      } else {
+        this.props.enqueueSnackbar('회원가입하지 못했습니다.', { variant: 'error' });
+      }
+    })
   };
 
   render() {
@@ -150,3 +166,6 @@ export default class SignupModal extends Component {
     );
   }
 }
+
+
+export default withSnackbar(SignupModal);

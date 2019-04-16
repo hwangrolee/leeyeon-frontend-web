@@ -9,7 +9,7 @@ import {
     DialogActions,
     DialogTitle
 } from '@material-ui/core';
-import {  VisitReservationForBuyer as VisitReservationForBuyerAPI, VisitReservationForSeller as VisitReservationForSellerAPI } from '../../../api/VisitReservation';
+import {  VisitReservationForBuyer as VisitReservationForBuyerAPI, VisitReservationForSeller as VisitReservationForSellerAPI } from '../../../api';
 import { withSnackbar } from 'notistack';
 import classNames from 'classnames';
 import styles from './VisitReservationDetailForBuyer.scss';

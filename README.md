@@ -3,6 +3,8 @@
 ## 개발환경
  - MacOS, VSCode, ReactJS, aws s3 hosting, material-ui, sass
 
+## Tesseract.js를 사용한 이미지에서 텍스트추출방법
+ - 
 ## 링크
 > aws s3로 배포
 

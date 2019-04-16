@@ -5,7 +5,7 @@ import {
     Grid,
     Typography
 } from '@material-ui/core';
-import {  VisitReservationForBuyer as VisitReservationForBuyerAPI, VisitReservationForSeller as VisitReservationForSellerAPI } from '../../../api/VisitReservation';
+import {  VisitReservationForBuyer as VisitReservationForBuyerAPI, VisitReservationForSeller as VisitReservationForSellerAPI } from '../../../api';
 import { EstateSummary } from '../../../components/Estate';
 import TemplateForVisitReservationBuyer from '../../../components/Estate/Template/TemplateForVisitReservationBuyer';
 import classNames from 'classnames';

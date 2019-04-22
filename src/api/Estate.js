@@ -33,6 +33,9 @@ class Estate {
             contseq: id, 
             'cmd': 'MAI_0200'
         }
+
+        console.log(data);
+
         return httpClient.post('/MAI_0200', {
             body: data
         })

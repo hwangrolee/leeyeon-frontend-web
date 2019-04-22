@@ -5,6 +5,9 @@ import {
     Typography
 } from '@material-ui/core';
 import { EstateSummary } from '../../components/Estate';
+import { withSnackbar } from 'notistack';
+import { getScrollPosition } from '../..//lib/Scroll';
+
 /**
  * @author leehwangro
  * @version 1.0.0
@@ -12,6 +15,8 @@ import { EstateSummary } from '../../components/Estate';
  * @classdesc 조회한 매물
  */
 class ReadEstate extends Component {
+    oldScroll = null;
+    possibleScroll = true;
     state = {
         pagination: {
             totPage: 0,
@@ -34,9 +39,31 @@ class ReadEstate extends Component {
         })
     }
 
+    handleScroll = e => {
+        const curScroll = getScrollPosition();
+        if(curScroll > 0.6 && curScroll > this.oldScroll && this.possibleScroll === true) {
+            this.possibleScroll = false;
+            setTimeout(() => {
+                this.possibleScroll = true;
+            }, 500);
+            // this.findAndSetEstate();
+            this.props.enqueueSnackbar('불러오는 중이에요...', { 
+                variant: 'info',
+                preventDuplicate: true,
+                autoHideDuration: 1500,
+                anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'center',
+                }
+            });
+        }
+
+        this.oldScroll = curScroll;
+    }
+
     render() {
         return (
-            <React.Fragment>
+            <div onScroll={this.handleScroll}>
                 <Grid container spacing={24}>
                     <Grid item xs={12}>
                         <Typography variant="h5">조회한 매물 목록</Typography>
@@ -71,9 +98,9 @@ class ReadEstate extends Component {
                         )
                     }
                 </Grid>
-            </React.Fragment>
+            </div>
         )
     }
 }
 
-export default ReadEstate;
+export default withSnackbar(ReadEstate);

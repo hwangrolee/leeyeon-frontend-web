@@ -49,22 +49,23 @@ export default function ({
     }
 
     return axios.create({
-        baseURL: baseURL,
+        // baseURL: baseURL,
+        baseURL: `/${PROJECT_NAME}/${appVer}/${source}`,
         timeout: 5000, // 5000ms
         headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': 'Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Header,Authorization',
-            'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
+            // 'Access-Control-Allow-Origin': '*',
+            // 'Access-Control-Allow-Headers': 'Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Header,Authorization',
+            // 'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
             'apikey': apiKey,
             'appkey': appKey,
-            'Accept': 'application/json',
+            // 'Accept': 'application/json',
             'Content-Type': 'application/json',
         },
         transformRequest: [(data = {}, headers) => {
             const cmd = data.body.cmd.slice(0) || "";
             delete data.body.cmd;
             const requestBody = {
-                data: data.body || {},
+                body: { data: data.body || {}},
                 header: {
                     'app_ver': '1.0.0',
                     'app_name': 'realestateWeb',
@@ -77,26 +78,29 @@ export default function ({
                     "cmd": cmd
                 }
             }
-
+            // localStorage.removeItem('userkey');
+            const userkey = localStorage.getItem('userkey');
             switch(cmd) {
                 case "CON_1000": // 부동산 등록
                     requestBody.imgfile = Object.assign({}, data.imgfile);
+                    requestBody.data.userkey = userkey;
                     delete requestBody.data.imgfile; 
                     break;
                 default:
                     break;
             }
 
-            return requestBody;
+            return JSON.stringify(requestBody);
             
         }],
         transformResponse: function (res) {
+            res = JSON.parse(res);
             const body = res.body;
-            const code = body.result;
-            if(code !== 200) {
+            body.result = parseInt(body.result);
+            if(body.result !== 200) {
 
             }
-            return res.body;
-          },
+            return body.data;
+        }        
     })
 }

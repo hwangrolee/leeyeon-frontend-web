@@ -13,7 +13,7 @@ export default class Money {
       if (tenThousand > 0) priceKOR.push(`${tenThousand}만`);
       price = price % 10000;
     } else {
-      priceKOR.push(`${price}원`);
+      priceKOR.push(`${price}`);
     }
 
     this.price = priceKOR.join(' ');

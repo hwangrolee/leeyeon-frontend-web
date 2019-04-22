@@ -103,13 +103,12 @@ export default class EstateDetail extends Component {
   };
 
   componentDidMount() {
-    // TODO: 상세 api 호출
     const { estateId } = this.props.match.params;
-    EstateAPI.findOneById(estateId).then(res => {
+    EstateAPI.findOneById(estateId).then(response => {
+      const estate = response.data;
       this.setState({
-        detail: new EstateModel(res.data).toDetail()
+        detail: new EstateModel(estate).toDetail()
       })
-      
     })
   }
 
@@ -165,50 +164,33 @@ export default class EstateDetail extends Component {
 
   render() {
     const { detail } = this.state;
+    console.log(this.state.detail);
     return (
         <Grid container spacing={24}>
           <Grid item md={12}>
             <Grid container spacing={16}>
               <Grid item md={12} sm={12}>
-                {/* <div align="center"> */}
                 <Typography>
               {this.getTitle({
                 price: detail.price,
                 type: detail.productType
               })}
                 </Typography>
-                
-                {/* </div> */}
               </Grid>
               <Grid item md={12} sm={12}>
                 <Table>
                   <TableBody>
                     <TableRow>
-                      <TableCell
-                        fontSize="20"
-                        variant="head"
-                        component="th"
-                        scope="row"
-                      >
-                        등록일
-                      </TableCell>
-                      <TableCell variant="body">{detail.createdAt}</TableCell>
-                      <TableCell variant="head" component="th" scope="row">
-                        등록자
-                      </TableCell>
-                      <TableCell variant="body">{detail.author}</TableCell>
+                      <TableCell fontSize="20" variant="head" component="th" scope="row">등록일</TableCell>
+                      <TableCell variant="body">{detail.korDate}</TableCell>
+                      <TableCell variant="head" component="th" scope="row">등록자</TableCell>
+                      <TableCell variant="body">{detail.email}</TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell variant="head" component="th" scope="row">
-                        주소
-                      </TableCell>
+                      <TableCell variant="head" component="th" scope="row">주소</TableCell>
                       <TableCell variant="body">{detail.address}</TableCell>
-                      <TableCell variant="head" component="th" scope="row">
-                        연락처
-                      </TableCell>
-                      <TableCell variant="body">
-                        {detail.mobileNumber}
-                      </TableCell>
+                      <TableCell variant="head" component="th" scope="row">연락처</TableCell>
+                      <TableCell variant="body">{detail.email}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
@@ -239,7 +221,6 @@ export default class EstateDetail extends Component {
                 />
               </Grid>
               <Grid item md={12} sm={12}>
-                상세정보
               </Grid>
             </Grid>
           </Grid>

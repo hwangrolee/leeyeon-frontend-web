@@ -23,7 +23,7 @@ class App extends Component {
             <Route exact path="/account" component={AccountMain} />
           </Switch>
           <Switch>
-            <Route path="/estate/detail/:realEstateId" component={EstateDetail}/>
+            <Route path="/estate/detail/:estateId" component={EstateDetail}/>
             <Route path="/estate/list" component={EstateList} />
             <EstateAddFormProvider>
               <Route path="/estate/add" component={EstateAdd} />

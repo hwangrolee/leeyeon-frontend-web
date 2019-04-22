@@ -2,6 +2,7 @@
   "name": "frontend-web",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://realestate.insightpick.com",
   "dependencies": {
     "@date-io/date-fns": "^1.1.0",
     "@material-ui/core": "^3.9.2",

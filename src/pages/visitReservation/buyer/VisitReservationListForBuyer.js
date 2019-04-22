@@ -21,9 +21,13 @@ export default class VisitReservationListForBuyer extends Component {
         estateList: []
     }
 
+    findAndSetEstate = () => {
+        VisitReservationForBuyerAPI.visitReservationList().then();
+    }
+
     componentDidMount() {
         // TODO: 판매자용 방문예약 목록을 서버에 요청한다.
-        // VisitReservationForBuyerAPI.visitReservationList();
+        
     }
 
     handlePageChange (page) {

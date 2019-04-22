@@ -14,9 +14,8 @@ export default class EstateModel {
   }
 
   toSimple() {
-    const newly = new SingleModel(this._estate);
     const {
-      id = 0,
+      contseq = 0,
       oimgurl = imageNotFoundLink,
       timgurl = imageNotFoundLink,
       likeyn = 0,
@@ -25,13 +24,14 @@ export default class EstateModel {
       price = 0
     } = this._estate;
 
-    this.estateId = id;
+    this.estateId = contseq;
     this.imageLink = oimgurl;
     this.thumbnail = timgurl;
     this.likeCount = likeyn;
     this.area = area;
     this.isNew = newyn === "Y";
     this.price = price;
+    return this;
   }
 
   toDetail() {
@@ -61,6 +61,8 @@ export default class EstateModel {
         thumbnail: img.TIMGURL
       };
     });
+    this.korDate = getKORDate(this.regDate);
+    return this;
   }
 
   toSearch() {
@@ -98,4 +100,12 @@ export default class EstateModel {
         break;
     }
   }
+}
+
+function getKORDate (regdate) {
+  const year = parseInt(regdate.slice(0, 4));
+  const month = parseInt(regdate.slice(4,6));
+  const day = parseInt(regdate.slice(6,8));
+
+  return `${year}년 ${month}월 ${day}일`;
 }

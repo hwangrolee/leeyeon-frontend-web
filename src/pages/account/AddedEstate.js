@@ -5,6 +5,10 @@ import {
     Typography
 } from '@material-ui/core';
 import { EstateSummary } from '../../components/Estate';
+import { Account as AccountAPI } from '../../api';
+import EstateModel from '../../lib/models/EstateModel';
+import { withSnackbar } from 'notistack';
+import { getScrollPosition } from '../..//lib/Scroll';
 /**
  * @author leehwangro
  * @version 1.0.0
@@ -12,6 +16,9 @@ import { EstateSummary } from '../../components/Estate';
  * @classdesc 등록한 매물
  */
 class AddedEstate extends Component {
+    oldScroll = null;
+    possibleScroll = true;
+
     state = {
         pagination: {
             totPage: 0,
@@ -20,12 +27,20 @@ class AddedEstate extends Component {
         estateList: []
     }
 
-    componentDidMount() {
+    findAndSetEstate = () => {
+        AccountAPI.estateListUpload().then(estateList => {
+            this.setState({
+                estateList: this.state.estateList.concat(estateList.map(estate => new EstateModel(estate)))
+            })
+        });
+    }
 
+    componentDidMount() {
+        this.findAndSetEstate();
+        window.addEventListener('scroll', this.handleScroll);
     }
 
     handlePageChange = (page) => {
-        // TODO: 판매자용 방문예약 목록 페이징 처리.
         const pagination = Object.assign(this.state.pagination, {});
         pagination.curPage = page;
         
@@ -34,10 +49,32 @@ class AddedEstate extends Component {
         })
     }
 
+    handleScroll = e => {
+        const curScroll = getScrollPosition();
+        if(curScroll > 0.6 && curScroll > this.oldScroll && this.possibleScroll === true) {
+            this.possibleScroll = false;
+            setTimeout(() => {
+                this.possibleScroll = true;
+            }, 500);
+            // this.findAndSetEstate();
+            this.props.enqueueSnackbar('불러오는 중이에요...', { 
+                variant: 'info',
+                preventDuplicate: true,
+                autoHideDuration: 1500,
+                anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'center',
+                }
+            });
+        }
+
+        this.oldScroll = curScroll;
+    }
+
     render() {
         return (
-            <React.Fragment>
-                <Grid container spacing={24}>
+            <div onScroll={this.handleScroll}>
+                <Grid container spacing={24} >
                     <Grid item xs={12}>
                         <Typography variant="h5">등록한 매물 목록</Typography>
                     </Grid>
@@ -65,9 +102,9 @@ class AddedEstate extends Component {
                         )
                     }
                 </Grid>
-            </React.Fragment>
+            </div>
         )
     }
 }
 
-export default AddedEstate;
+export default withSnackbar(AddedEstate);

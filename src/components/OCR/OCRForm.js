@@ -34,18 +34,15 @@ class OCRForm extends Component {
       disabled: true
     });
 
+    this.props.setValue('image', file);
+
     Jimp.read(URL.createObjectURL(file)).then(async res => {
-      console.log(res, res.greyscale());
-
       const base64 = await res.quality(100).greyscale().greyscale().getBase64Async(Jimp.MIME_JPEG)
-
-      console.log(base64);
       this.setState({
         procImage: base64
       });
 
-      Tesseract.recognize(base64, { lang: 'kor' })
-      .progress(message => {
+      Tesseract.recognize(base64, { lang: 'kor' }).progress(message => {
         const { status, progress }  = message;
         switch(status) {
           case 'loading tesseract core': // 코어 로딩
@@ -55,7 +52,6 @@ class OCRForm extends Component {
                 status: 0,
               });
             }
-            
             break;
           case 'recognizing text': // 분석중.
             const percentage =  progress * 100
@@ -65,7 +61,6 @@ class OCRForm extends Component {
                 status: 1,
               });
             }
-            
             break;
           default:
             break;
@@ -84,50 +79,7 @@ class OCRForm extends Component {
       // return res.greyscale().write('lena-small-bw.jpg');
     }).catch(error => {
       console.error(error);
-    })
-
-    // Tesseract
-    // // .create({
-    // //   workerPath: 'https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/1.0.14/worker.js',
-    // //   langPath: 'https://tessdata.projectnaptha.com/3.02/',
-    // //   // corePath: 'https://cdn.jsdelivr.net/gh/naptha/tesseract.js-core@0.1.0/index.js',
-    // // })
-    // .recognize(file, { lang: 'kor' })
-    // .progress(message => {
-    //   const { status, progress }  = message;
-    //   switch(status) {
-    //     case 'loading tesseract core': // 코어 로딩
-    //     case 'initializing tesseract': // 초기화
-    //       if(this.state.status !== 0) {
-    //         this.setState({
-    //           status: 0,
-    //         });
-    //       }
-          
-    //       break;
-    //     case 'recognizing text': // 분석중.
-    //       const percentage =  progress * 100
-    //       if(this.state.loading < percentage) {
-    //         this.setState({
-    //           loading: percentage > 0 ? percentage.toFixed(2) : percentage,
-    //           status: 1,
-    //         });
-    //       }
-          
-    //       break;
-    //     default:
-    //       break;
-    //   }
-    // })
-    // .catch(err => console.error(err))
-    // .then(result => {
-    //   this.setState({
-    //     status: 2,
-    //     loading: 0,
-    //     disabled: false
-    //   })
-    // })
-    // .finally(resultOrError => console.log(resultOrError))
+    });
 
     this.props.setValue('image', file)
   }
@@ -184,11 +136,6 @@ class OCRForm extends Component {
                       )
                     }
                 </div>
-                {
-                  Boolean(this.state.procImage) ? (
-                    <img className={cx('ocr-form-image')} src={this.state.procImage} alt="my picture"/>
-                  ) : ''
-                }
               </React.Fragment>
             )
           }}

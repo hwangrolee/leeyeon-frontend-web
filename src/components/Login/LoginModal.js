@@ -12,10 +12,11 @@ import {
 } from "@material-ui/core";
 import {} from "@material-ui/icons";
 import { Account as AccountAPI } from '../../api';
+import { withSnackbar } from 'notistack';
 
 const cx = classNames.bind(styles);
 
-export default class LoginModal extends Component {
+class LoginModal extends Component {
   state = {
     open: false,
     email: "",
@@ -47,13 +48,18 @@ export default class LoginModal extends Component {
       return false;
     }
 
-    // if (RegExp.verifyPassword(password) === false) {
-    //   return false;
-    // }
-
-    await AccountAPI.login({ email: this.state.email, password: this.state.password }).then(res => {
-      console.log(res);
-    })
+    await AccountAPI.login({ email: this.state.email, password: this.state.password }).then(response => {
+      if(response.data === null) {
+        this.props.enqueueSnackbar('가입된 회원이 아닙니다. 회원가입부터 해주세요', { variant: 'error' });
+      } else {
+        this.props.enqueueSnackbar('로그인했습니다.', { variant: 'success' });
+        localStorage.setItem('userkey', response.data.userkey);
+        localStorage.setItem('email', email);
+        window.location.reload();
+      }
+    }).catch(error => {
+      this.props.enqueueSnackbar('서버와의 통신이 원홀하지 않습니다.', { variant: 'error' });
+    });
 
     return true;
   };
@@ -77,3 +83,5 @@ export default class LoginModal extends Component {
     );
   }
 }
+
+export default withSnackbar(LoginModal);

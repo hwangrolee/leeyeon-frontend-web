@@ -13,7 +13,7 @@ import {
   TextField
  } from "@material-ui/core";
 import {} from "@material-ui/icons";
-
+import { Account as AccountAPI } from '../../api';
 import { EditAccount } from "../../components/Account";
 import { withSnackbar } from 'notistack';
 
@@ -27,6 +27,18 @@ class Main extends Component {
     value: 0
   };
 
+  componentDidMount() {
+    const userkey = localStorage.getItem('userkey');
+    const email = localStorage.getItem('email');
+    console.log(userkey, email);
+    this.setState({
+      email: email || ''
+    });
+    AccountAPI.info().then(response => {
+      console.log(response);
+    })
+  }
+
   handleChange = e => {
     const { name, value, type } = e.target;
     switch(type) {
@@ -36,13 +48,13 @@ class Main extends Component {
           });
           break;
     }
-}
+  }
 
-handleSubmit = async (e) => {
-  e.preventDefault();
-  await this.handleUpdateAccount();
-  return false;
-}
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    await this.handleUpdateAccount();
+    return false;
+  }
 
   handleOpenDialog = () => {
     this.setState({
@@ -56,7 +68,6 @@ handleSubmit = async (e) => {
   }
 
   handleUpdateAccount = async () => {
-     // TODO: 계정 수정 요청을 서버에 보냅니다.
      this.props.enqueueSnackbar('사용자 정보를 수정했습니다.', { variant: 'success' });
      this.props.enqueueSnackbar('사용자 정보를 수정하지 못했습니다.', { variant: 'error' });
      this.handleCloseDialog();
@@ -67,43 +78,13 @@ handleSubmit = async (e) => {
       <div style={{ marginTop: "80px" }}>
         <Grid container spacing={24}>
           <Grid item xs={12}>
-            <Typography
-              variant="h4"
-              align="center"
-              style={{ color: "#0e0e0ede" }}
-            >
-              MY Account
-            </Typography>
+            <Typography variant="h4" align="center" style={{ color: "#0e0e0ede" }}>MY Account</Typography>
           </Grid>
           <div style={{ height: "100px" }} />
-          <Grid
-            item
-            xs={12}
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "flex-end"
-            }}
-          >
-            <Typography variant="body1" style={{ alignSelf: "center" }}>
-              보유토큰: 0.000001
-            </Typography>
-            <Button
-              color="secondary"
-              variant="outlined"
-              size="small"
-              style={{ margin: "0px 5px" }}
-            >
-              충전
-            </Button>
-            <Button
-              color="primary"
-              variant="outlined"
-              size="small"
-              style={{ margin: "0px 5px" }}
-            >
-              환전
-            </Button>
+          <Grid item xs={12} style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end" }} >
+            <Typography variant="body1" style={{ alignSelf: "center" }}>보유토큰: 0.000001</Typography>
+            <Button color="secondary" variant="outlined" size="small" style={{ margin: "0px 5px" }}>충전</Button>
+            <Button color="primary" variant="outlined" size="small" style={{ margin: "0px 5px" }}>환전</Button>
           </Grid>
           <Grid item xs={12}>
           <form onSubmit={this.handleSubmit}>

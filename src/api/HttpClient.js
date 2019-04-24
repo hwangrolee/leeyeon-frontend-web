@@ -53,13 +53,14 @@ export default function ({
         baseURL: `/${PROJECT_NAME}/${appVer}/${source}`,
         timeout: 5000, // 5000ms
         headers: {
-            // 'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Origin': '*',
             // 'Access-Control-Allow-Headers': 'Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Header,Authorization',
             // 'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
             'apikey': apiKey,
             'appkey': appKey,
             // 'Accept': 'application/json',
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8;',
+            'userkey': localStorage.getItem('userkey')
         },
         transformRequest: [(data = {}, headers) => {
             const cmd = data.body.cmd.slice(0) || "";
@@ -78,29 +79,28 @@ export default function ({
                     "cmd": cmd
                 }
             }
-            // localStorage.removeItem('userkey');
-            const userkey = localStorage.getItem('userkey');
-            switch(cmd) {
-                case "CON_1000": // 부동산 등록
-                    requestBody.imgfile = Object.assign({}, data.imgfile);
-                    requestBody.data.userkey = userkey;
-                    delete requestBody.data.imgfile; 
-                    break;
-                default:
-                    break;
-            }
 
-            return JSON.stringify(requestBody);
+            const userkey = localStorage.getItem('userkey');
+            if(userkey !== null) {
+                requestBody.header.userkey = userkey;
+            }
             
+            return JSON.stringify(requestBody);
         }],
         transformResponse: function (res) {
-            res = JSON.parse(res);
-            const body = res.body;
-            body.result = parseInt(body.result);
-            if(body.result !== 200) {
-
+            if(res.length > 0) {
+                res = JSON.parse(res);
+                const body = res.body;
+                body.result = parseInt(body.result);
+                return body;
+            } else {
+                return {};
             }
-            return body.data;
-        }        
+            
+        },
+        proxy: {
+            host: 'http://realestate.insightpick.com',
+            port: 80
+        }      
     })
 }

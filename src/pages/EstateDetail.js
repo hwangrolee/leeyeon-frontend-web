@@ -105,7 +105,7 @@ export default class EstateDetail extends Component {
   componentDidMount() {
     const { estateId } = this.props.match.params;
     EstateAPI.findOneById(estateId).then(response => {
-      const estate = response.data;
+      const estate = response.data.data;
       this.setState({
         detail: new EstateModel(estate).toDetail()
       })

@@ -1,4 +1,5 @@
 import HttpClient from './HttpClient';
+import axios from 'axios';
 const httpClient = new HttpClient({ source: 'main'});
 
 /**
@@ -34,8 +35,6 @@ class Estate {
             'cmd': 'MAI_0200'
         }
 
-        console.log(data);
-
         return httpClient.post('/MAI_0200', {
             body: data
         })
@@ -46,23 +45,61 @@ class Estate {
      * @param { Object.<*> } obj
      */
     insertEstate(estateInfo) {
-        const data = {
+        const info = {
             paddr: estateInfo.address,
             paptnm: estateInfo.buildingName,
-            pyear: estateInfo.builtYear,
-            psize: estateInfo.size,
+            pyear: estateInfo.builtYear.toString(),
+            psize: estateInfo.size.toString(),
             popt1: Object.keys(estateInfo.options).join(','),
             popt2: estateInfo.content,
-            imgfile: estateInfo.image,
-            cmd: "CON_1000"
+            // imgfile: estateInfo.image,
+            // cmd: "CON_1000"
         }
-        return new HttpClient({ source: 'cont'}).post('/CON_1000', {
-            body: data,
-        }, {
-            headers: {
-                'Content-Type': 'multipart/form-data;'
+
+        const data = {
+            body: {
+                paddr: estateInfo.address,
+                paptnm: estateInfo.buildingName,
+                pyear: estateInfo.builtYear.toString(),
+                psize: estateInfo.size.toString(),
+                popt1: Object.keys(estateInfo.options).join(','),
+                popt2: estateInfo.content,
+            },
+            header: {
+                'app_ver': '1.0.0',
+                'app_name': 'realestateWeb',
+                'os_ver': '1.0',
+                'os_type': 'A',
+                'dev_id': "A",
+                'dev_name': "name",
+                'dev_lang': "ko",
+                "phone_no": "",
+                "cmd": "CON_1000" 
             }
-        });
+        }
+
+        const formData = new FormData();
+        formData.set('imgfile', estateInfo.image);
+        formData.set('jsonparams', JSON.stringify(data));
+
+        console.log('formdata', formData);
+        
+        return axios.post('/realestate/v1/cont/CON_1000', formData, {
+            headers: {
+                'apikey': 'wscvtghjh3456',
+                'appkey': 'qznZY8m7BIBf1fYL+gJiVToxHQw=',
+                'Content-Type': 'multipart/form-data',
+                'userkey': localStorage.getItem('userkey')
+            }
+        })
+        // const httpClient = new HttpClient({ source: 'cont'});
+        // return httpClient.post('/CON_1000', {
+        //     body: data,
+        // }, {
+        //     headers: {
+        //         'Content-Type': 'multipart/form-data'
+        //     }
+        // });
     }
 
     /**

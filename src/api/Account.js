@@ -52,19 +52,21 @@ class Account {
         password: password,
         cmd: "MEM_0400"
       }
-    });
+    }).then(response => {
+      return response;
+    })
   }
 
   /**
    * 로그인
    */
   login({ email, password, pushkey ="" }) {
-    return httpClient.post("/MEM_0500", { 
+    return httpClient.post("/MEM_0600", { 
       body: {
         email: email,
         password: password,
         pushkey: pushkey,
-        cmd: "MEM_0500"
+        cmd: "MEM_0600"
       }
     });
   }
@@ -202,9 +204,17 @@ class Account {
       body: {
         cmd: "MYI_0500"
       }
-    })
+    });
+  }
+
+  info() {
+    return new HttpClient({ source: "myif" }).post("MYI_0100", {
+      body: {
+        cmd: "MYI_0100"
+      }
+    });
   }
 
 }
 
-export default new Account();
+export default (new Account());

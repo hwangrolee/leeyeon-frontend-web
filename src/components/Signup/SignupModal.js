@@ -61,57 +61,72 @@ const cx = classNames.bind(styles);
     const { email, password, rpassword, terms } = this.state;
 
     if (RegExp.verifyEmail(email) === false) {
-      console.log("incorrect email");
       this.props.enqueueSnackbar(`${email}은 이메일 양식이 아닙니다.`, { variant: 'success' });
       return false;
     }
 
     await Account.validatePassword(password).then(res => {
-      const { result, message, data } = res;
+      const { result, message, data } = res.data;
       const code = parseInt(result);
       if(code !== 200) {
-        this.props.enqueueSnackbar(message, { variant: 'error' });
-      } else {
-        this.props.enqueueSnackbar(`Level ${data.passlevel}. 인증되었습니다.`, { variant: 'success' });
+        this.props.enqueueSnackbar(message, { variant: 'warning' });
+        return false;
+      // } else {
+      //   this.props.enqueueSnackbar(`비밀번호 Level ${data.passlevel}. 인증되었습니다.`, { variant: 'success' });
       }
+
+      if (password !== rpassword) {
+        this.props.enqueueSnackbar('비밀번호가 다릅니다.', { variant: 'error' });
+        return false;
+      }
+  
+      if (terms === false) {
+        return false;
+      }
+
+      Account.signup({email: email, password: password}).then(response => {
+        const { result, message, data } = response.data;
+        if(result === 200) {
+          this.props.enqueueSnackbar('성공적으로 회원가입을 했습니다', { variant: 'success' });
+          const userkey = data.userkey;
+          localStorage.setItem('userkey', userkey);
+          localStorage.setItem('email', email);
+          window.location.reload();
+        } else {
+          this.props.enqueueSnackbar(message, { variant: 'warning' });
+        }
+      }).catch(error => {
+        this.props.enqueueSnackbar('서버와의 통신이 원홀하지 않습니다.', { variant: 'error' });
+      });
     }).catch(error => {
         this.props.enqueueSnackbar('서버와의 통신이 원홀하지 않습니다.', { variant: 'error' });
     });
-
-
-    if (password !== rpassword) {
-      this.props.enqueueSnackbar('비밀번호가 다릅니다.', { variant: 'error' });
-      return false;
-    }
-
-    if (terms === false) {
-      return false;
-    }
-
+    
     return true;
   };
 
   handleSubmit = async e => {
     e.preventDefault();
     this.verifyFormData();
-    const data = {
-      email: this.state.email,
-      password: this.state.password
-    }
+    // const data = {
+    //   email: this.state.email,
+    //   password: this.state.password
+    // }
     
-    Account.signup(data).then(res => {
-      const { result, message, data } = res;
+    // Account.signup(data).then(res => {
+    //   const { result, message, data } = res;
       
-      const code = parseInt(result);
-      if(code === 200) {
-        const { status, userKey } = data;
-        if(parseInt(status) === 1) {
-          localStorage.setItem('userKey', userKey)
-        }
-      } else {
-        this.props.enqueueSnackbar('회원가입하지 못했습니다.', { variant: 'error' });
-      }
-    })
+    //   const code = parseInt(result);
+    //   if(code === 200) {
+    //     const { status, userKey } = data;
+    //     if(parseInt(status) === 1) {
+    //       localStorage.setItem('userKey', userKey)
+    //     }
+    //   } else {
+    //     this.props.enqueueSnackbar('회원가입하지 못했습니다.', { variant: 'error' });
+    //   }
+    // })
+    return false;
   };
 
   render() {

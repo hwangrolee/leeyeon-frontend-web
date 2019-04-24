@@ -53,13 +53,13 @@ export default function ({
         baseURL: `/${PROJECT_NAME}/${appVer}/${source}`,
         timeout: 5000, // 5000ms
         headers: {
-            'Access-Control-Allow-Origin': '*',
+            // 'Access-Control-Allow-Origin': '*',
             // 'Access-Control-Allow-Headers': 'Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Header,Authorization',
             // 'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
             'apikey': apiKey,
             'appkey': appKey,
             // 'Accept': 'application/json',
-            'Content-Type': 'application/json;charset=UTF-8;',
+            'Content-Type': 'application/json;harset=UTF-8',
             'userkey': localStorage.getItem('userkey')
         },
         transformRequest: [(data = {}, headers) => {
@@ -97,10 +97,6 @@ export default function ({
                 return {};
             }
             
-        },
-        proxy: {
-            host: 'http://realestate.insightpick.com',
-            port: 80
-        }      
+        }        
     })
 }

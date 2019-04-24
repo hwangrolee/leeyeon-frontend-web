@@ -53,7 +53,7 @@ class Estate {
             popt1: Object.keys(estateInfo.options).join(','),
             popt2: estateInfo.content,
             // imgfile: estateInfo.image,
-            // cmd: "CON_1000"
+            cmd: "CON_1000"
         }
 
         const data = {
@@ -82,8 +82,6 @@ class Estate {
         formData.set('imgfile', estateInfo.image);
         formData.set('jsonparams', JSON.stringify(data));
 
-        console.log('formdata', formData);
-        
         return axios.post('/realestate/v1/cont/CON_1000', formData, {
             headers: {
                 'apikey': 'wscvtghjh3456',
@@ -92,14 +90,6 @@ class Estate {
                 'userkey': localStorage.getItem('userkey')
             }
         })
-        // const httpClient = new HttpClient({ source: 'cont'});
-        // return httpClient.post('/CON_1000', {
-        //     body: data,
-        // }, {
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data'
-        //     }
-        // });
     }
 
     /**
